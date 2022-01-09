@@ -5,7 +5,6 @@
       ../programs/zsh/zsh.nix
       ../programs/neovim/neovim.nix
       ../programs/git.nix
-      ../programs/starship.nix
     ];
 
   home = {
@@ -54,6 +53,7 @@
     enable = true;
     config.theme = "ansi-dark";
   };
+
 
   xdg.configFile."alacritty/alacritty.yml".source = ../programs/alacritty.yml;
   xdg.configFile."oh-my-zsh/plugins/nix-shell".source = pkgs.fetchFromGitHub {
