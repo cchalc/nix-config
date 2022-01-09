@@ -10,6 +10,7 @@ in {
  home.packages = with pkgs; [
    zlib
    vscode-with-extensions
+   terraform
    google-cloud-sdk
    nixFlakes
  ];

@@ -41,6 +41,11 @@
 
   programs.zsh.enable = true;
 
+
+  gpg = {
+    enable = true;
+  };
+
   system.stateVersion = 4;
   users = {
     users.cchalc = {

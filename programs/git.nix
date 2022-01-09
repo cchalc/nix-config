@@ -43,6 +43,12 @@
       mergetool.keepBackup = false;
       mergetool.trustExitCode = true;
       mergetool.ediff.keepBackup = false;
+
+      commit.gpgsign = "false";
+      gpg.program = "gpg2";
+
+      protocol.keybase.allow = "always";
+      credential.helper = "osxkeychain";
           };
 
     ignores = [
