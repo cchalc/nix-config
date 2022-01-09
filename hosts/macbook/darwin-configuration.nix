@@ -42,9 +42,9 @@
   programs.zsh.enable = true;
 
 
-  gpg = {
-    enable = true;
-  };
+  #programs.gpg = {
+  #  enable = true;
+  #};
 
   system.stateVersion = 4;
   users = {

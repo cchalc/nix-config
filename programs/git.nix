@@ -85,7 +85,7 @@
       "*~"
       "*.swp"
       "*.swo"
-      "__MACOSX/cchalc
+      "__MACOSX/cchalc"
       "*.DS_Store"
       ".elasticbeanstalk/*"
       "!.elasticbeanstalk/*.cfg.yml"
