@@ -37,7 +37,29 @@
           }
         ];
       };
-    in {
+
+          in {
+      #overlay = import ./overlay
+
+      #homeConfigurations = {
+      #  macbook = inputs.home-manager.lib.homeManagerConfiguration {
+      #    darwinSystem;
+      #    };
+      #};
+
+      darwinConfigurations = {
+        databricks = darwin.lib.darwinSystem {
+          system = "x86_64-darwin";
+          modules = [
+            ./hosts/macbook/darwin-configuration.nix
+            home-manager.darwinModules.home-manager {
+              home-manager.users.cchalc = homeManagerConfFor ./hosts/macbook/home.nix;
+            }
+          ];
+        };
+      };
+         
       defaultPackage.x86_64-darwin = darwinSystem.system;
+      databricks = self.darwinConfigurations.databricks.system;
     };
 }

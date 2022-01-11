@@ -34,7 +34,7 @@
     enableFontDir = true;
     fonts = with pkgs; [
       fira-code
-      iosevka
+      #iosevka
       aileron
     ];
   };
