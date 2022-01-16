@@ -48,7 +48,7 @@
       #};
 
       darwinConfigurations = {
-        databricks = darwin.lib.darwinSystem {
+        C02CT8TEMD6M = darwin.lib.darwinSystem {
           system = "x86_64-darwin";
           modules = [
             ./hosts/macbook/darwin-configuration.nix
@@ -60,6 +60,6 @@
       };
          
       defaultPackage.x86_64-darwin = darwinSystem.system;
-      databricks = self.darwinConfigurations.databricks.system;
+      C02CT8TEMD6M = self.darwinConfigurations.C02CT8TEMD6M.system;
     };
 }
