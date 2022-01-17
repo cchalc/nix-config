@@ -2,7 +2,26 @@
 {
   programs.zsh = {
     enable = true;
-    enableCompletion = false;
+    shellAliases = {
+      grep = "grep --color=auto";
+      diff = "diff --color=auto";
+      dc = "docker compose";
+      iq = "instruqt";
+      szsh = "source ~/.zshrc";
+      cat = "bat";
+      garbage = "nix-collect-garbage";
+      we = "watchexec";
+
+      # Navigation;
+      ".." = "cd ..";
+      "..." = "cd ../..";
+      "...." = "cd ../../..";
+      "....." = "cd ../../../..";
+    };
+    enableAutosuggestions = true;
+    enableCompletion = true;
+    autocd = true;
+    history.extended = true;
     initExtraBeforeCompInit = builtins.readFile ./zshrc;
     oh-my-zsh = {
       enable = true;

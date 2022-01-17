@@ -48,7 +48,7 @@
 
   system.stateVersion = 4;
   users = {
-    users.cchalc = {
+    users."christopher.chalcraft" = {
       home = /Users/christopher.chalcraft;
     };
   };

@@ -33,7 +33,7 @@
         modules = [
           ./hosts/macbook/darwin-configuration.nix
           home-manager.darwinModules.home-manager {
-            home-manager.users.cchalc = homeManagerConfFor ./hosts/macbook/home.nix;
+            home-manager.users."christopher.chalcraft" = homeManagerConfFor ./hosts/macbook/home.nix;
           }
         ];
       };
@@ -53,7 +53,7 @@
           modules = [
             ./hosts/macbook/darwin-configuration.nix
             home-manager.darwinModules.home-manager {
-              home-manager.users.cchalc = homeManagerConfFor ./hosts/macbook/home.nix;
+              home-manager.users."christopher.chalcraft" = homeManagerConfFor ./hosts/macbook/home.nix;
             }
           ];
         };
