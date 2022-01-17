@@ -51,7 +51,7 @@
   programs.fzf.enable = true;
   programs.bat = {
     enable = true;
-    config.theme = "ansi-dark";
+    config.theme = "onehalf";
   };
 
 

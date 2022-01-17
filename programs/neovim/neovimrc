@@ -58,7 +58,7 @@ filetype indent on
 
 " solarized colors with settings
 set background=dark
-colorscheme gruvbox
+colorscheme solarized
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 " enable transparency for alacritty
