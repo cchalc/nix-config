@@ -39,7 +39,7 @@
       style_user = "white bold";
       style_root = "black bold";
       format = "[$user]($style) ";
-      disabled = false;
+      diabled = false;
       show_always = true;
     };
     erlang = {
@@ -57,4 +57,4 @@
       format = "via [☃️ $state( \($name\))](bold blue) ";
     };
   };
-}
+}s

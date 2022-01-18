@@ -34,13 +34,13 @@
     enableFontDir = true;
     fonts = with pkgs; [
       fira-code
-      #iosevka
+      fira-code-symbols
+#      iosevka
       aileron
     ];
   };
 
   programs.zsh.enable = true;
-
 
   #programs.gpg = {
   #  enable = true;

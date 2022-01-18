@@ -39,7 +39,7 @@ vterm_printf(){
 
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
+#eval "$(starship init zsh)"
 
 # For stuff not suppose to be version controlled
 if [ -e ~/.env ]; then

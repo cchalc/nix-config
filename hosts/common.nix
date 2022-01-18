@@ -51,9 +51,8 @@
   programs.fzf.enable = true;
   programs.bat = {
     enable = true;
-    config.theme = "onehalf";
+    config.theme = "TwoDark";
   };
-
 
   xdg.configFile."alacritty/alacritty.yml".source = ../programs/alacritty.yml;
   xdg.configFile."oh-my-zsh/plugins/nix-shell".source = pkgs.fetchFromGitHub {
