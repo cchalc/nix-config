@@ -28,6 +28,8 @@
       alacritty
       ghc
       cabal-install
+      poetry
+      gh
     ];
 
   fonts = {
