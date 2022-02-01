@@ -88,6 +88,7 @@ let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 set statusline+=%#warningmsg#
 set statusline+=%*
+set noshowmode
 
 " vim-indent-guides
 autocmd VimEnter * :IndentGuidesEnable
