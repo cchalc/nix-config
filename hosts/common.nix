@@ -12,6 +12,8 @@
     packages = with pkgs; [
       cabal-install
       cachix
+      gerrit
+      buildkite-cli
       gawk
       jsonnet
       lorri
@@ -56,6 +58,10 @@
   bat = {
     enable = true;
     config.theme = "TwoDark";
+  };
+
+  gpg = {
+    enable = true;
   };
 
 };

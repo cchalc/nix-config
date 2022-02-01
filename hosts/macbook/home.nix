@@ -13,6 +13,9 @@ in {
    terraform
    google-cloud-sdk
    nixFlakes
+
+   # azure
+   azure-cli
  ];
 
  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
