@@ -41,18 +41,25 @@
     ];
   };
 
-  programs.direnv = {
-    enable = true;
-    nix-direnv = {
+  # program specifications
+  programs = {
+    direnv = {
       enable = true;
+      nix-direnv = {
+        enable = true;
     };
   };
 
-  programs.fzf.enable = true;
-  programs.bat = {
+  fzf = {
+    enable = true;
+  };
+  bat = {
     enable = true;
     config.theme = "TwoDark";
   };
+
+};
+
 
 #  xdg.configFile."poetry/pypoetry".source = ../programs/dev/poetry.conf;
   xdg.configFile."alacritty/alacritty.yml".source = ../programs/alacritty.yml;
