@@ -23,6 +23,7 @@
       vim-airline-themes
 
       #themes
+      gruvbox
       vim-colors-solarized
 
       # utilities
@@ -36,8 +37,7 @@
       vim-easy-align # vipga
       vim-eunuch # :Rename foo.rb
       vim-sneak
-      ale
-
+      #ale
 
       # extras
       vim-indent-guides

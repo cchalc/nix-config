@@ -11,6 +11,8 @@ in {
    zlib
    vscode-with-extensions
    terraform
+   cue
+   cuetools
    google-cloud-sdk
    nixFlakes
 
