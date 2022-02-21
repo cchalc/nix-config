@@ -103,6 +103,9 @@ set statusline+=%*
 set noshowmode
 
 " vim-indent-guides
+set ts=4 sw=4 et
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
 autocmd VimEnter * :IndentGuidesEnable
 
 
@@ -116,6 +119,7 @@ map <Down> <Nop>
 let mapleader = ","
 " clear search
 nnoremap <leader><space> :noh<cr>
+nnoremap <leader>a :IndentGuidesToggle<cr>
 
 " auto reload .vimrc
 " credits: sirlancelot http://stackoverflow.com/questions/2400264/is-it-possible-to-apply-vim-configurations-without-restarting/2403926#2403926
