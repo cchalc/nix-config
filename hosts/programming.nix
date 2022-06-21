@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
 #    # go
-#    go
+    go
 #
 #    # Haskell
 #    ghc

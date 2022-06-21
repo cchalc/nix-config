@@ -8,6 +8,7 @@
   environment.systemPackages = with pkgs;
     [
       ( python38.withPackages (ps: with ps; [ pip flake8 black pynvim ipython python-language-server.override { pylint = null; } ]) )
+      go
       ffmpeg
       gnupg
       openssl
@@ -30,6 +31,7 @@
       cabal-install
       poetry
       gh
+      jre8 # for databricks-connect
     ];
 
   fonts = {

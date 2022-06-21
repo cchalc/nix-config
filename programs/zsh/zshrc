@@ -22,8 +22,12 @@ if [ -n "${commands[fzf-share]}" ]; then
   bindkey '^B' fzf-history-widget
 fi
 
+# Globally installed language configuration
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PATH:$PYENV_ROOT/bin:/usr/local/bin:/bin:/usr/sbin:/sbin:/usr/bin:$HOME/.local/bin:$HOME/.cargo/bin"
+export GOPATH="$HOME"
+export PATH="$GOPATH:$PATH"
+export PATH="$GOPATH/bin:$PATH"
 
 vterm_printf(){
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
