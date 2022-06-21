@@ -31,7 +31,7 @@
       cabal-install
       poetry
       gh
-      jre8 # for databricks-connect
+      #jre8 # for databricks-connect
     ];
 
   fonts = {
