@@ -32,6 +32,7 @@
       poetry
       gh
       #jre8 # for databricks-connect
+      exercism
     ];
 
   fonts = {
