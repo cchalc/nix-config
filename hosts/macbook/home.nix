@@ -9,15 +9,18 @@ in {
  ];
  home.packages = with pkgs; [
    zlib
-   vscode-with-extensions
    terraform
    cue
    cuetools
-   google-cloud-sdk
    nixFlakes
 
-   # azure
+   # cloud
    azure-cli
+   google-cloud-sdk
+
+   # editor
+   vscode-with-extensions
+   helix
  ];
 
  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
