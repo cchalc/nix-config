@@ -33,6 +33,7 @@
       gh
       #jre8 # for databricks-connect
       exercism
+      unixODBC
     ];
 
   fonts = {
