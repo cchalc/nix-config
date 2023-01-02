@@ -7,7 +7,7 @@
 
   environment.systemPackages = with pkgs;
     [
-      ( python38.withPackages (ps: with ps; [ pip flake8 black pynvim ipython python-language-server.override { pylint = null; } ]) )
+      ( python38.withPackages (ps: with ps; [ pip flake8 black pynvim ipython ]) )
       go
       ffmpeg
       gnupg
@@ -37,11 +37,11 @@
     ];
 
   fonts = {
-    enableFontDir = true;
+    fontDir.enable = true;
     fonts = with pkgs; [
       fira-code
       fira-code-symbols
-#      iosevka
+      iosevka
       aileron
     ];
   };
