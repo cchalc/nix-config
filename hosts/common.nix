@@ -3,7 +3,7 @@
   imports =
     [
       ../programs/zsh/zsh.nix
-#      ../programs/neovim/neovim.nix
+      ../programs/neovim/neovim.nix
       ../programs/git.nix
     ];
 
@@ -71,9 +71,6 @@
       repo = "zsh-nix-shell";
       rev = "f8574f27e1d7772629c9509b2116d504798fe30a";
       sha256 = "0svskd09vvbzqk2ziw6iaz1md25xrva6s6dhjfb471nqb13brmjq";
-    };
-    "lvim/config.lua" = {
-      source = ../programs/lvim/config.lua;
     };
   };
 
