@@ -60,6 +60,9 @@
   };
 
   nix = {
+    nixPath = lib.mkForce [
+      "nixpkgs=${nixpkgs}"
+    ];
     package = pkgs.nixUnstable;
     extraOptions = ''
       experimental-features = nix-command flakes
