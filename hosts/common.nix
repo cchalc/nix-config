@@ -8,7 +8,7 @@
     ];
 
   home = {
-    stateVersion = "22.11";
+    stateVersion = "21.05";
     packages = with pkgs; [
       cabal-install
       cachix
