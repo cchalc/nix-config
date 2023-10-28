@@ -31,9 +31,17 @@
     python3Packages.parso
     python3Packages.twine
 
-#    # rust
+    # rust
+    rustToolchain
+    openssl
+    pkg-config
+    cargo-deny
+    cargo-edit
+    cargo-watch
+    rust-analyzer
 #    rustc
 #    cargo
+#    rust-analyzer
 #    cargo-tarpaulin
 #    perl # perl (this is required by rust)
 #

@@ -7,7 +7,8 @@
 
   environment.systemPackages = with pkgs;
     [
-      ( python39.withPackages (ps: with ps; [ pip flake8 black pynvim ipython ]) )
+#      ( python39.withPackages (ps: with ps; [ pip flake8 black pynvim ipython ]) )
+      ( python310.withPackages (ps: with ps; [ pip flake8 black pynvim ipython ]) )
       go
       ffmpeg
       gnupg
