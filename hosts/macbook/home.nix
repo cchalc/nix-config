@@ -6,12 +6,11 @@ let
 in {
   imports = [
    ../common.nix
+   ../programming.nix
  ];
  home.packages = with pkgs; [
    zlib
    terraform
-   cue
-   cuetools
    nixFlakes
 
    # cloud
@@ -26,5 +25,6 @@ in {
  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
    "vscode"
    "vscode-with-extensions"
+   "terraform"
  ];
 }

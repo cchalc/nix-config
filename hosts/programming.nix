@@ -32,15 +32,17 @@
     python3Packages.twine
 
     # rust
-    rustToolchain
+    rustc
     openssl
     pkg-config
+    cargo
     cargo-deny
     cargo-edit
-    cargo-watch
+#    cargo-watch
+    rustfmt
     rust-analyzer
-#    rustc
-#    cargo
+    clippy
+#    rustToolchain
 #    rust-analyzer
 #    cargo-tarpaulin
 #    perl # perl (this is required by rust)
@@ -49,9 +51,8 @@
     # Lunarvim requires fd and ripgrep as well.
     fd
     ripgrep
-    neovim
+#    neovim
     nodePackages.neovim
-    python39Packages.pynvim
     tree-sitter
 #
     # language servers
