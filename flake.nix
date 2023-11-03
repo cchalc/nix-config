@@ -25,7 +25,9 @@
   outputs = {self, darwin, home-manager, flake-utils, nixpkgs, nur, ...}@inputs:
     let
       homeManagerConfFor = config: { ... }: {
-        nixpkgs.overlays = [ ];
+				nixpkgs.overlays = [
+					nur.overlay
+				];
         imports = [ config ];
       };
       darwinSystem = darwin.lib.darwinSystem {
@@ -36,6 +38,7 @@
             home-manager.users."christopher.chalcraft" = homeManagerConfFor ./hosts/macbook/home.nix;
           }
         ];
+        specialArgs = { inherit nixpkgs; };
       };
 
           in {

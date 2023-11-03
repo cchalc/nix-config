@@ -3,6 +3,8 @@
   home.packages = with pkgs; [
 #    # go
     go
+    gofumpt
+    gopls
 #
 #    # Haskell
 #    ghc
@@ -15,6 +17,11 @@
 #
 #    # lua
 #    lua
+    # nix
+    nixfmt
+    nixpkgs-fmt
+    nixpkgs-review
+    nixos-generators
 #
     # python
     (python3.withPackages (ps: with ps; [ setuptools pip debugpy ]))
@@ -24,10 +31,35 @@
     python3Packages.parso
     python3Packages.twine
 
-#    # rust
-#    rustc
-#    cargo
+    # rust
+    rustc
+    openssl
+    pkg-config
+    cargo
+    cargo-deny
+    cargo-edit
+#    cargo-watch
+    rustfmt
+    rust-analyzer
+    clippy
+#    rustToolchain
+#    rust-analyzer
 #    cargo-tarpaulin
 #    perl # perl (this is required by rust)
+#
+    # neovim
+    # Lunarvim requires fd and ripgrep as well.
+    fd
+    ripgrep
+#    neovim
+    nodePackages.neovim
+    tree-sitter
+#
+    # language servers
+    rnix-lsp
+    terraform-ls
+    nodePackages.yaml-language-server
+    nodePackages.typescript-language-server
+    sumneko-lua-language-server
   ];
 }
