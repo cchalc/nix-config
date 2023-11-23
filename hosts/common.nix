@@ -10,7 +10,7 @@
   home = {
     stateVersion = "21.05";
     packages = with pkgs; [
-      cabal-install
+#      cabal-install
       cachix
       gerrit
       buildkite-cli
