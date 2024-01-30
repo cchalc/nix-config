@@ -47,7 +47,7 @@
     ];
   };
 
-  programs.zsh.enable = true;
+#  programs.zsh.enable = true; # set in common.nix with direnv
 
   #programs.gpg = {
   #  enable = true;
