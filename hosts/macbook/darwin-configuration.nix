@@ -35,6 +35,7 @@
       #jre8 # for databricks-connect
       exercism
       unixODBC
+      iosevka
     ];
 
   fonts = {
@@ -47,7 +48,7 @@
     ];
   };
 
-#  programs.zsh.enable = true; # set in common.nix with direnv
+  programs.zsh.enable = true; # set in common.nix with direnv
 
   #programs.gpg = {
   #  enable = true;
