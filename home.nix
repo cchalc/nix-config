@@ -20,5 +20,12 @@
     enable = true;
     homedir = "${config.xdg.configHome}/gnupg";
   };
-  imports = [./modules/home-manager];
+
+  imports = [
+    ./modules/home-manager
+  ];
+
+  packages = with pkgs; [
+    zed-editor
+  ];
 }
