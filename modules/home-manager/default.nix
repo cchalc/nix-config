@@ -13,4 +13,8 @@
     yabai
     zoxide
   ];
+
+  environment.systemPackages = with pkgs; [
+    cachix
+  ];
 }
