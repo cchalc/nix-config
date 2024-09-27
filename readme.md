@@ -25,3 +25,5 @@ nix flake update .
 ## references
 
 [repo](https://github.com/synecdokey/dotfiles/tree/dev)
+
+nix-config % nix --extra-experimental-features "nix-command flakes" run github:zmre/pwzsh
