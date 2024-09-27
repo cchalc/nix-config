@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{config, ...}: {
   nixpkgs.config.allowUnfreePredicate = pkg: true;
   home = {
     stateVersion = "23.11";
@@ -27,9 +23,5 @@
 
   imports = [
     ./modules/home-manager
-  ];
-
-  packages = with pkgs; [
-    zed-editor
   ];
 }
