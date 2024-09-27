@@ -16,7 +16,7 @@
     ...
   }: {
     homeConfigurations = {
-      "HN2PKWWX57" = home-manager.lib.homeManagerConfiguration {
+      "christopher.chalcraft" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.aarch64-darwin;
         modules = [./home.nix];
         extraSpecialArgs = {
