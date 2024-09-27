@@ -1,0 +1,4 @@
+[user]
+	email = christopher.chalcraft@databricks.com
+[push]
+  default = upstream
