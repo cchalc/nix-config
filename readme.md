@@ -21,3 +21,7 @@ upgrading software is a single command away:
 ```sh
 nix flake update .
 ```
+
+## references
+
+[repo](https://github.com/synecdokey/dotfiles/tree/dev)
