@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   nixpkgs.config.allowUnfreePredicate = pkg: true;
   home = {
     stateVersion = "23.11";
