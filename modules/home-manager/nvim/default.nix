@@ -17,8 +17,6 @@
     extraPackages = with pkgs; [
       alejandra
       nil
-      nodePackages."@tailwindcss/language-server"
-      nodePackages."@astrojs/language-server"
       vscode-langservers-extracted
     ];
   };
