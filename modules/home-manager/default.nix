@@ -25,15 +25,15 @@
 			pandoc
 			whois
 		];
+	};
 
-		programs = {
-			fzf = {
-				enable = true;
-			};
-			bat = {
-				enable = true;
-				config.theme = "TwoDark";
-			};
-		};
+  programs = {
+    fzf = {
+      enable = true;
+    };
+    bat = {
+      enable = true;
+      config.theme = "TwoDark";
+    };
 	};
 }
