@@ -1,11 +1,12 @@
--- Remove netrw's top banner
-vim.g.netrw_banner = 0
+-- Enable experimental lua loader
+vim.loader.enable()
+vim.opt.runtimepath:prepend(vim.g.nix_extra_runtime)
 
--- Set leader, needs to be defined asap to avoid mapping anything to the default
--- leader
-vim.g.mapleader = ' '
--- Prevent default behaviour of space to move by one character like l
-vim.keymap.set({ 'n', 'v' }, vim.g.mapleader, '<nop>')
+local tempest = require("my.tempest")
+local nix = require("nix")
 
--- Load all plugins
-require('emilia')
+tempest.configureMany(nix.pre)
+require("my.lazy").setup()
+tempest.configureMany(nix.post)
+
+require("my.helpers.folding").setup()
