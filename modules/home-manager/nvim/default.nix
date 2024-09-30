@@ -6,7 +6,16 @@
   programs.neovim = {
     enable = true;
     vimAlias = true;
-    plugins = with pkgs.vimPlugins; [
+		plugins = let
+			nvim-treesitter-with-plugins = pkgs.vimPlugins.nvim-treesitter.withPlugins (treesitter-plugins:
+				with treesitter-plugins; [
+					bash
+					lua
+					nix
+					python
+      ]);
+  in
+		with pkgs.vimPlugins; [
       #specific languages
       vim-nix
       vim-markdown
@@ -15,7 +24,6 @@
       vim-scala
       rust-vim
       vim-hcl
-      vim-cue
       vim-pandoc
       vim-pandoc-syntax
       vim-toml
@@ -44,6 +52,8 @@
 
       # extras
       vim-indent-guides
+      LazyVim
+      nvim-treesitter-with-plugins
     ];
     extraConfig = builtins.readFile ./neovimrc;
   };
