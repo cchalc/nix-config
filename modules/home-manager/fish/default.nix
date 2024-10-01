@@ -29,6 +29,73 @@
     shellAbbrs = {
       vi = "nvim";
       vim = "nvim";
+      g = "git";
+      dc = "docker compose";
+      tf = "terraform";
+      n = "nvim";
+      k = "kubectl";
     };
+
+    functions = {
+      gi = {
+        description = "Pick commit for interactive rebase";
+        body = ''
+          set -l commit (git log --oneline --decorate | fzf --preview 'git show (echo {} | awk \'{ print $1 }\')' | awk '{ print $1 }')
+          if test -n "$commit"
+            git rebase $commit~1 --interactive --autosquash
+          end
+        '';
+      };
+
+      gf = {
+        description = "Fixup a commit then autosquash";
+        body = ''
+          set -l commit (git log --oneline --decorate | fzf --preview 'git show (echo {} | awk \'{ print $1 }\')' | awk '{ print $1 }')
+          if test -n "$commit"
+            git commit --fixup $commit
+            GIT_SEQUENCE_EDITOR=true git rebase $commit~1 --interactive --autosquash
+          end
+        '';
+      };
+
+      gc = {
+        description = "fzf git checkout";
+        body = ''
+          git checkout (git branch -a --sort=-committerdate |
+            fzf --preview 'git log (echo {} | sed -E -e \'s/^(\+|\*)//\' | string trim) -- ' |
+            sed -E -e 's/^(\+|\*)//' |
+            xargs basename |
+            string trim)
+        '';
+      };
+
+    shellAliases = {
+      ga = "git add";
+      gc = "git commit";
+      gco = "git checkout";
+      gcp = "git cherry-pick";
+      gdiff = "git diff";
+      gl = "git prettylog";
+      gp = "git push";
+      gs = "git status";
+      gt = "git tag";
+    };
+
+    plugins = [
+      {
+        name = "nix-env";
+        src = pkgs.nix-fish.src;
+      }
+
+      {
+        name = "yui";
+        src = pkgs.fishPlugins.yui.src;
+      }
+
+      {
+        name = "lucid";
+        src = pkgs.lucid-fish-prompt.src;
+      }
+    ];
   };
 }
