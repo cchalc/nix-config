@@ -1,6 +1,14 @@
 {
   programs.fish = {
     enable = true;
+    shellInit = ''
+    # Nix
+    if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
+      source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
+    end
+    # End Nix
+    '';
+
     interactiveShellInit = ''
       set -Ux CARGO_HOME ~/.cache/cargo/
       set -Ux PNPM_HOME ~/.cache/pnpm/
