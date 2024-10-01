@@ -88,15 +88,6 @@
     };
 
     plugins = [
-      {
-        name = "nix-env";
-        src = pkgs.nix-fish.src;
-      }
-
-      {
-        name = "yui";
-        src = pkgs.fishPlugins.yui.src;
-      }
     ];
   };
 }
