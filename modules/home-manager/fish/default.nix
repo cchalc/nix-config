@@ -68,6 +68,7 @@
             string trim)
         '';
       };
+    };
 
     shellAliases = {
       ga = "git add";
