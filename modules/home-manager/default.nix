@@ -21,6 +21,7 @@
 			zoxide
 			tree
 			htop
+			fzf
 			cachix
 			pandoc
 			whois
