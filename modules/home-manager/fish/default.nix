@@ -97,11 +97,6 @@
         name = "yui";
         src = pkgs.fishPlugins.yui.src;
       }
-
-      {
-        name = "lucid";
-        src = pkgs.lucid-fish-prompt.src;
-      }
     ];
   };
 }
