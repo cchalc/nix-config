@@ -30,6 +30,8 @@
 
       starship init fish | source
       zoxide init fish | source
+
+			set -g SHELL ${pkgs.fish}/bin/fish
     '';
     shellAbbrs = {
       vi = "nvim";
