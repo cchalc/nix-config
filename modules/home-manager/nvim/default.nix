@@ -13,6 +13,7 @@
 					lua
 					nix
 					python
+					elixir
       ]);
   in
 		with pkgs.vimPlugins; [

@@ -40,5 +40,9 @@
 			enable = true;
 			extraConfig = builtins.readFile ./kitty;
 		};
+		zellij = {
+			enable = true;
+			stylix.targets.enable = true;
+		};
 	};
 }
