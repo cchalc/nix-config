@@ -6,6 +6,7 @@
 		./fish
 		./git
 		./nvim
+		./kitty.nix
 	];
 
 	home = {
