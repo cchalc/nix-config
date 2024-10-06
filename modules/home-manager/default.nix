@@ -42,7 +42,7 @@
 		};
 		zellij = {
 			enable = true;
-			stylix.targets.enable = true;
+			enableFishIntegration = true;
 		};
 	};
 }
