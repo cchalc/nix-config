@@ -37,5 +37,9 @@
       enable = true;
       config.theme = "TwoDark";
     };
+		kitty = {
+			enable = true;
+			extraConfig = builtins.readFile ./kitty;
+		};
 	};
 }
