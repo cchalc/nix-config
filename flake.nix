@@ -1,68 +1,28 @@
 {
-  description = "NixOS configuration and home-manager configurations for mac and debian gnu/linux";
+  description = "nixconf";
+
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur.url = "github:nix-community/nur";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    darwin = {
-      url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-#    nur = {
-#      url = "github:nix-community/NUR";
-#      inputs.nixpkgs.follows = "nixpkgs";
-#      };
-
-    # Other sources
-    comma = { url = github:Shopify/comma; flake = false; };
-    flake-compat = { url = github:edolstra/flake-compat; flake = false; };
-    flake-utils.url = github:numtide/flake-utils;
-
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
-  outputs = {self, darwin, home-manager, flake-utils, nixpkgs, nur, ...}@inputs:
-    let
-      homeManagerConfFor = config: { ... }: {
-				nixpkgs.overlays = [
-					nur.overlay
-				];
-        imports = [ config ];
-      };
-      darwinSystem = darwin.lib.darwinSystem {
-        system = "x86_64-darwin";
-        modules = [
-          ./hosts/macbook/darwin-configuration.nix
-          home-manager.darwinModules.home-manager {
-            home-manager.users."christopher.chalcraft" = homeManagerConfFor ./hosts/macbook/home.nix;
-          }
-        ];
-        specialArgs = { inherit nixpkgs; };
-      };
 
-          in {
-      #overlay = import ./overlay
-
-      #homeConfigurations = {
-      #  macbook = inputs.home-manager.lib.homeManagerConfiguration {
-      #    darwinSystem;
-      #    };
-      #};
-
-      darwinConfigurations = {
-        C02CT8TEMD6M = darwin.lib.darwinSystem {
-          system = "x86_64-darwin";
-          modules = [
-            ./hosts/macbook/darwin-configuration.nix
-            home-manager.darwinModules.home-manager {
-              home-manager.users."christopher.chalcraft" = homeManagerConfFor ./hosts/macbook/home.nix;
-            }
-          ];
+  outputs = inputs @ {
+    nixpkgs,
+    home-manager,
+    ...
+  }: {
+    homeConfigurations = {
+      "christopher.chalcraft" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+        modules = [./home.nix];
+        extraSpecialArgs = {
+          inherit inputs;
         };
       };
-         
-      defaultPackage.x86_64-darwin = darwinSystem.system;
-      C02CT8TEMD6M = self.darwinConfigurations.C02CT8TEMD6M.system;
     };
+  };
 }
