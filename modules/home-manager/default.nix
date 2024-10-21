@@ -22,6 +22,7 @@
 			tree
 			htop
 			fzf
+			devenv
 			cachix
 			pandoc
 			whois
@@ -44,11 +45,5 @@
 			enable = true;
 			enableFishIntegration = true;
 		};
-	};
-
-	environment = {
-		systemPackages = with pkgs; [
-      devenv
-    ];
 	};
 }
