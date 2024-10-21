@@ -50,5 +50,5 @@
 		systemPackages = with pkgs; [
       devenv
     ];
-
+	};
 }
