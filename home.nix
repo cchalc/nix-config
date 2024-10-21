@@ -24,8 +24,4 @@
   imports = [
     ./modules/home-manager
   ];
-
-	environment.systemPackages = [
-		pkgs.devenv
-	];
 }

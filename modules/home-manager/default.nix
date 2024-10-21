@@ -45,4 +45,10 @@
 			enableFishIntegration = true;
 		};
 	};
+
+	environment = {
+		systemPackages = with pkgs; [
+      devenv
+    ];
+
 }
