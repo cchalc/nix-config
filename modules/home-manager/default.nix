@@ -17,6 +17,7 @@
 				hatch
 			]))
 			uv
+			hatch
 			python3Packages.ipython
 			python3Packages.parso
 			python3Packages.twine
