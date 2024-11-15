@@ -53,7 +53,7 @@
 		};
 		python = {
 			enable = true;
-			package = pkgs.python3;
+			package = pkgs.python312;
 		};
 	};
 
