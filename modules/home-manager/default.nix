@@ -51,9 +51,8 @@
 			enable = true;
 			enableFishIntegration = true;
 		};
-		python = {
+		python312 = {
 			enable = true;
-			package = pkgs.python312;
 		};
 	};
 
