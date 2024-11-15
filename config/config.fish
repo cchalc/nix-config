@@ -147,3 +147,6 @@ set -gx EDITOR nvim
 # with it.
 alias fnix "nix-shell --run fish"
 
+function create_envrc
+    echo 'export UV_PROJECT_ENVIRONMENT=$HOME/.virtualenvs/(basename $PWD)' > .envrc
+end
