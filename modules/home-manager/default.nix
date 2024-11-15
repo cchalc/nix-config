@@ -10,12 +10,18 @@
 
 	home = {
 		packages = with pkgs; [
+			#python
 			(python3.withPackages (ps: with ps; [
 				pip
 				virtualenv
 				hatch
 			]))
 			uv
+			python3Packages.ipython
+			python3Packages.parso
+			python3Packages.twine
+
+			#other
 			fd
 			jq
 			raycast
@@ -55,8 +61,4 @@
 			enable = true;
 		};
 	};
-
-  home.sessionVariables = {
-    PYTHONPATH = "${pkgs.python3}/lib/python${pkgs.python3.pythonVersion}/site-packages";
-  };
 }
