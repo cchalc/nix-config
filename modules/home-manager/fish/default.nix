@@ -87,7 +87,7 @@
       gp = "git push";
       gs = "git status";
       gt = "git tag";
-      ce = "echo 'export UV_PROJECT_ENVIRONMENT=$HOME/.virtualenvs/$(basename "$PWD")' > .envrc"
+      ce = "echo 'export UV_PROJECT_ENVIRONMENT=$HOME/.virtualenvs/$(basename $PWD)' > .envrc"
     };
 
     plugins = [
