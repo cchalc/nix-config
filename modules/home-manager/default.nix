@@ -57,8 +57,5 @@
 			enable = true;
 			enableFishIntegration = true;
 		};
-		python312 = {
-			enable = true;
-		};
 	};
 }
