@@ -10,6 +10,12 @@
 
 	home = {
 		packages = with pkgs; [
+			(python3.withPackages (ps: with ps; [
+				pip
+				virtualenv
+				hatch
+			]))
+			uv
 			fd
 			jq
 			raycast
@@ -45,5 +51,13 @@
 			enable = true;
 			enableFishIntegration = true;
 		};
+		python = {
+			enable = true;
+			package = pkgs.python3;
+		};
 	};
+
+  home.sessionVariables = {
+    PYTHONPATH = "${pkgs.python3}/lib/python${pkgs.python3.pythonVersion}/site-packages";
+  };
 }
