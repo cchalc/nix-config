@@ -11,7 +11,7 @@
 	home = {
 		packages = with pkgs; [
 			#python
-			(python3.withPackages (ps: with ps; [
+			(python311Full.withPackages (ps: with ps; [
 				pip
 				virtualenv
 				hatch
@@ -22,8 +22,8 @@
 			python3Packages.twine
 
 			#databricks
-			python312Packages.databricks-cli
-			python312Packages.databricks-sql-connector
+			python311Packages.databricks-cli
+			python311Packages.databricks-sql-connector
 			python311Packages.databricks-connect
 
 			#other
