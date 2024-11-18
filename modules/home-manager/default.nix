@@ -21,6 +21,11 @@
 			python3Packages.parso
 			python3Packages.twine
 
+			#databricks
+			python312Packages.databricks-cli
+			python312Packages.databricks-sql-connector
+			python312Packages.databricks-connect
+
 			#other
 			fd
 			jq
