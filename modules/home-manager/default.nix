@@ -22,9 +22,9 @@
 			python3Packages.twine
 
 			#databricks
-			python311Packages.databricks-cli
-			python311Packages.databricks-sql-connector
-			python311Packages.databricks-connect
+			#python311Packages.databricks-cli
+			#python311Packages.databricks-sql-connector
+			#python311Packages.databricks-connect
 
 			#other
 			fd
