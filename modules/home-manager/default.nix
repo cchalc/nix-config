@@ -25,6 +25,7 @@
 			#python311Packages.databricks-cli
 			#python311Packages.databricks-sql-connector
 			#python311Packages.databricks-connect
+			jdk17
 
 			#other
 			fd
