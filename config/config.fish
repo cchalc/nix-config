@@ -154,20 +154,20 @@ end
 #-------------------------------------------------------------------------------
 # JAVA
 #-------------------------------------------------------------------------------
-function set_java_home
-    # Define the potential JDK 17 installation paths
-    set jdk_paths ~/.nix-profile/bin/java 
-
-    # Check each path to see if it exists
-    for path in $jdk_paths
-        if test -d $path
-            # JDK 17 is found, set JAVA_HOME and update PATH
-            set -x JAVA_HOME $path
-            set -x PATH $JAVA_HOME/bin $PATH
-            echo "JAVA_HOME set to $JAVA_HOME"
-            return
-        end
-    end
-
-end
-
+#function set_java_home
+#    # Define the potential JDK 17 installation paths
+#    set jdk_paths ~/.nix-profile/bin/java 
+#
+#    # Check each path to see if it exists
+#    for path in $jdk_paths
+#        if test -d $path
+#            # JDK 17 is found, set JAVA_HOME and update PATH
+#            set -x JAVA_HOME $path
+#            set -x PATH $JAVA_HOME/bin $PATH
+#            echo "JAVA_HOME set to $JAVA_HOME"
+#            return
+#        end
+#    end
+#
+#end
+#

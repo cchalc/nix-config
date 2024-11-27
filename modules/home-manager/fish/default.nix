@@ -32,6 +32,8 @@
       zoxide init fish | source
 
 			set -g SHELL ${pkgs.fish}/bin/fish
+
+			set_java_home
     '';
     shellAbbrs = {
       vi = "nvim";
