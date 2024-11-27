@@ -26,6 +26,8 @@
 			#python311Packages.databricks-sql-connector
 			#python311Packages.databricks-connect
 			jdk17
+			nodejs_22
+			yarn
 
 			#other
 			fd
