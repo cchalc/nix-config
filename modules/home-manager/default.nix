@@ -28,6 +28,7 @@
 			jdk17
 			nodejs_22
 			yarn
+			duckdb
 
 			#other
 			fd
