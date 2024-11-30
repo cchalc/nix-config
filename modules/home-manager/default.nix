@@ -30,6 +30,9 @@
 			yarn
 			duckdb
 
+			#elixir
+			elixir_1_15
+
 			#other
 			fd
 			jq
