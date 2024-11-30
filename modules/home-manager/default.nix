@@ -32,6 +32,7 @@
 
 			#elixir
 			elixir_1_15
+			livebook
 
 			#other
 			fd
