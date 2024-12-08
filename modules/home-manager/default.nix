@@ -33,7 +33,6 @@
 			#elixir
 			elixir_1_15
 			livebook
-			postgresql
 
 			#other
 			fd
