@@ -51,6 +51,10 @@
 			cachix
 			pandoc
 			whois
+
+			#training
+			exercism
+
 		];
 	};
 
