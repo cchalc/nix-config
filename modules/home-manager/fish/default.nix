@@ -19,12 +19,14 @@
       set -Ux PNPM_HOME ~/.cache/pnpm/
       set -Ux JAVA_HOME ~/.nix-profile/bin/java
       set -Ux NPM_HOME ~/.npm-global/
+      set -Ux LOCAL_HOME ~/.local/
       set -U fish_greeting
 
       fish_add_path $PNPM_HOME
       fish_add_path $CARGO_HOME/bin/
       fish_add_path $JAVA_HOME
       fish_add_path $NPM_HOME/bin/
+      fish_add_path $LOCAL_HOME/bin/
 
       set -xg XDG_CONFIG_HOME ~/.config
       set -xg VISUAL nvim

@@ -26,9 +26,10 @@
 			#python311Packages.databricks-sql-connector
 			#python311Packages.databricks-connect
 			jdk17
-			nodejs_22
+			nodejs_20
 			yarn
 			duckdb
+			bun
 
 			#elixir
 			elixir_1_15
@@ -54,6 +55,9 @@
 
 			#training
 			exercism
+
+			#cloud stuff
+			google-cloud-sdk
 
 		];
 	};
