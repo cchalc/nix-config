@@ -38,6 +38,7 @@
 			#other
 			fd
 			jq
+			yq
 			raycast
 			ripgrep
 			rustup
