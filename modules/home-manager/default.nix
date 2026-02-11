@@ -58,6 +58,7 @@
 
 			#cloud stuff
 			google-cloud-sdk
+			awscli2
 
 		];
 	};
