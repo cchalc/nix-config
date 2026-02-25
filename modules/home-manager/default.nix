@@ -60,6 +60,7 @@
 			#cloud stuff
 			google-cloud-sdk
 			awscli2
+			databricks-cli
 
 		];
 	};
