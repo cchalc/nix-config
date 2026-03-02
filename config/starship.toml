@@ -1,158 +1,190 @@
+"$schema" = 'https://starship.rs/config-schema.json'
 
-# ~/.config/starship.toml
-# ─────────────────────────────────────────────
-# TOP LEVEL
-# ─────────────────────────────────────────────
-add_newline = true
-command_timeout = 2000
-
-# Powerline-style left prompt + right prompt for time/duration
 format = """
-[](fg:#a3aed2)\
-[$directory](bg:#a3aed2 fg:#090c0c bold)\
-[](fg:#769ff0 bg:#a3aed2)\
-[$git_branch$git_status$git_metrics](bg:#769ff0 fg:#090c0c)\
-[](fg:#394260 bg:#769ff0)\
-[$nodejs$elixir$rust$python$nix_shell](bg:#394260 fg:#ffffff)\
-[](fg:#212736 bg:#394260)\
-[$custom.databricks$custom.devenv](bg:#212736 fg:#769ff0)\
-[ ](bg:#212736)\
-$fill\
-$os $character"""
+[](surface0)\
+$os\
+$username\
+[](bg:peach fg:surface0)\
+$directory\
+[](fg:peach bg:green)\
+$git_branch\
+$git_status\
+[](fg:green bg:teal)\
+$c\
+$rust\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+[](fg:teal bg:blue)\
+$docker_context\
+[](fg:blue bg:purple)\
+$time\
+[ ](fg:purple)\
+$line_break$character"""
 
-right_format = "$cmd_duration$time"
+palette = 'catppuccin_mocha'
 
-continuation_prompt = "▶▶ "
+[palettes.gruvbox_dark]
+color_fg0 = '#fbf1c7'
+color_bg1 = '#3c3836'
+color_bg3 = '#665c54'
+color_blue = '#458588'
+color_aqua = '#689d6a'
+color_green = '#98971a'
+color_orange = '#d65d0e'
+color_purple = '#b16286'
+color_red = '#cc241d'
+color_yellow = '#d79921'
 
-# ─────────────────────────────────────────────
-# LAYOUT
-# ─────────────────────────────────────────────
-
-[fill]
-symbol = " "
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+orange = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
 
 [os]
 disabled = false
-format = "[$symbol]($style)"
-style = "bold white"
+style = "bg:surface0 fg:text"
 
 [os.symbols]
-Macos = " "
-Linux = " "
-Windows = " "
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = ""
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
 
-[character]
-success_symbol = "[❯](bold green)"
-error_symbol = "[❯](bold red)"
-vimcmd_symbol = "[❮](bold yellow)"
-
-# ─────────────────────────────────────────────
-# DIRECTORY
-# ─────────────────────────────────────────────
+[username]
+show_always = true
+style_user = "bg:surface0 fg:text"
+style_root = "bg:surface0 fg:text"
+format = '[ $user ]($style)'
 
 [directory]
-format = " 󰉋 $path$read_only "
+style = "fg:mantle bg:peach"
+format = "[ $path ]($style)"
 truncation_length = 3
-truncate_to_repo = true
-read_only = " 󰌾"
-style = "bg:#a3aed2 fg:#090c0c bold"
+truncation_symbol = "…/"
 
-# ─────────────────────────────────────────────
-# GIT
-# ─────────────────────────────────────────────
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
 
 [git_branch]
-format = " $symbol$branch "
-symbol = " "
-style = "bg:#769ff0 fg:#090c0c"
-truncation_length = 20
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol $branch ](fg:base bg:green)]($style)'
 
 [git_status]
-format = '([$all_status$ahead_behind]($style) )'
-style = "bg:#769ff0 fg:#090c0c"
-conflicted = "⚔️ "
-ahead = "⇡${count}"
-behind = "⇣${count}"
-diverged = "⇕⇡${ahead_count}⇣${behind_count}"
-untracked = "?"
-modified = "!"
-staged = "+"
-renamed = "»"
-deleted = "✘"
-
-[git_metrics]
-disabled = false
-added_style = "bold green bg:#769ff0"
-deleted_style = "bold red bg:#769ff0"
-format = '([+$added]($added_style) )([-$deleted]($deleted_style) )'
-
-# ─────────────────────────────────────────────
-# LANGUAGES & RUNTIMES
-# ─────────────────────────────────────────────
+style = "bg:teal"
+format = '[[($all_status$ahead_behind )](fg:base bg:green)]($style)'
 
 [nodejs]
-format = "[ $symbol($version) ](bg:#394260)"
-symbol = " "
-style = "bg:#394260 fg:#ffffff"
-detect_files = ["package.json"]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 
-[elixir]
-format = "[ $symbol($version) ](bg:#394260)"
-symbol = " "
-style = "bg:#394260 fg:#ffffff"
-detect_files = ["mix.exs"]
+[c]
+symbol = " "
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 
 [rust]
-format = "[ $symbol($version) ](bg:#394260)"
-symbol = " "
-style = "bg:#394260 fg:#ffffff"
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[php]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[java]
+symbol = " "
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 
 [python]
-format = "[ $symbol($version) ](bg:#394260)"
-symbol = " "
-style = "bg:#394260 fg:#ffffff"
-detect_files = ["pyproject.toml", "requirements.txt", ".python-version"]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 
-[nix_shell]
-format = "[ $symbol$state( \\($name\\)) ](bg:#394260)"
-symbol = " "
-style = "bg:#394260 fg:#89dceb"
-impure_msg = "impure"
-pure_msg = "pure"
-
-# ─────────────────────────────────────────────
-# CUSTOM MODULES
-# ─────────────────────────────────────────────
-
-[custom.databricks]
-description = "Show active Databricks profile"
-command = "echo ${DATABRICKS_CONFIG_PROFILE:-default}"
-when = "test -n \"$DATABRICKS_CONFIG_PROFILE\""
-symbol = "🧱 "
-style = "bold bg:#212736 fg:#769ff0"
-format = "[ $symbol$output ]($style)"
-
-[custom.devenv]
-description = "Show active devenv.sh environment"
-command = "basename $PWD"
-when = "test -f devenv.nix"
-symbol = "❄️  "
-style = "bold bg:#212736 fg:#89dceb"
-format = "[ $symbol$output ]($style)"
-
-# ─────────────────────────────────────────────
-# RIGHT PROMPT
-# ─────────────────────────────────────────────
-
-[cmd_duration]
-min_time = 1_000
-format = "[ 󱑍 $duration]($style) "
-style = "bold yellow"
-show_notifications = true
-min_time_to_notify = 30_000
+[docker_context]
+symbol = ""
+style = "bg:mantle"
+format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
 
 [time]
 disabled = false
-format = "[ $time ]($style)"
-time_format = "%H:%M"
-style = "bold dimmed white"
+time_format = "%R"
+style = "bg:peach"
+format = '[[  $time ](fg:mantle bg:purple)]($style)'
+
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+success_symbol = '[](bold fg:green)'
+error_symbol = '[](bold fg:red)'
+vimcmd_symbol = '[](bold fg:creen)'
+vimcmd_replace_one_symbol = '[](bold fg:purple)'
+vimcmd_replace_symbol = '[](bold fg:purple)'
+vimcmd_visual_symbol = '[](bold fg:lavender)'
