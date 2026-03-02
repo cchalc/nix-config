@@ -6,6 +6,7 @@
     ./git
     ./nvim
     ./jujutsu
+    ./tmux
   ];
 
   home = {
