@@ -1,85 +1,94 @@
-{config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 {
-	imports = 
-	[
-		./direnv
-		./fish
-		./git
-		./nvim
-	];
+  imports = [
+    ./direnv
+    ./fish
+    ./git
+    ./nvim
+  ];
 
-	home = {
-		packages = with pkgs; [
-			#python
-			(python311Full.withPackages (ps: with ps; [
-				pip
-				virtualenv
-				hatch
-			]))
-			uv
-			python3Packages.ipython
-			python3Packages.parso
-			python3Packages.twine
+  home = {
+    packages = with pkgs; [
+      # python
+      (python311Full.withPackages (ps: with ps; [
+        pip
+        virtualenv
+        hatch
+      ]))
+      uv
+      python3Packages.ipython
+      python3Packages.parso
+      python3Packages.twine
 
-			#databricks
-			#python311Packages.databricks-cli
-			#python311Packages.databricks-sql-connector
-			#python311Packages.databricks-connect
-			jdk17
-			nodejs_20
-			yarn
-			duckdb
-			bun
+      # databricks
+      # python311Packages.databricks-cli
+      # python311Packages.databricks-sql-connector
+      # python311Packages.databricks-connect
+      jdk17
+      nodejs_20
+      yarn
+      duckdb
+      bun
 
-			#elixir
-			elixir_1_15
-			livebook
+      # elixir
+      elixir_1_15
+      livebook
 
-			#other
-			fd
-			jq
-			yq
-			raycast
-			ripgrep
-			rustup
-			starship
-			stylua
-			yabai
-			zoxide
-			tree
-			htop
-			fzf
-			devenv
-			cachix
-			pandoc
-			whois
+      # other
+      fd
+      jq
+      yq
+      raycast
+      ripgrep
+      rustup
+      starship
+      stylua
+      yabai
+      zoxide
+      tree
+      htop
+      fzf
+      devenv
+      cachix
+      pandoc
+      whois
 
-			#training
-			exercism
+      # training
+      exercism
 
-			#cloud stuff
-			google-cloud-sdk
-			awscli2
-			databricks-cli
-
-		];
-	};
+      # cloud stuff
+      google-cloud-sdk
+      awscli2
+    ];
+  };
 
   programs = {
-    fzf = {
-      enable = true;
-    };
+    fzf.enable = true;
+
     bat = {
       enable = true;
       config.theme = "TwoDark";
     };
-		kitty = {
-			enable = true;
-			extraConfig = builtins.readFile ./kitty;
-		};
-		zellij = {
-			enable = true;
-			enableFishIntegration = true;
-		};
-	};
+
+    kitty = {
+      enable = true;
+      extraConfig = builtins.readFile ./kitty;
+    };
+
+    zellij = {
+      enable = false;
+      enableFishIntegration = true;
+    };
+
+    ghostty = {
+      enable = true;
+      package = pkgs.ghostty-bin; # macOS
+      enableFishIntegration = true;
+      settings = {
+        font-size = 14;
+        theme = "Gruvbox Dark";
+        background-opacity = 0.95;
+      };
+    };
+  };
 }
