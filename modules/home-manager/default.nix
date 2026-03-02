@@ -5,6 +5,7 @@
     ./fish
     ./git
     ./nvim
+    ./jujutsu
   ];
 
   home = {

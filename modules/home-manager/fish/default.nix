@@ -95,6 +95,12 @@
       gs = "git status";
       gt = "git tag";
       ce = "echo 'export UV_PROJECT_ENVIRONMENT=$HOME/.virtualenvs/$(basename $PWD)' > .envrc";
+
+      jd = "jj desc";
+      jf = "jj git fetch";
+      jn = "jj new";
+      jp = "jj git push";
+      js = "jj st";
     };
 
     plugins = [
