@@ -89,8 +89,8 @@
       settings = {
         font-family = "JetBrainsMono Nerd Font";  # or any other Nerd Font
         font-size = 14;
-        theme = "Gruvbox Dark";
-        background-opacity = 0.95;
+        theme = "catppuccin-mocha";
+        background-opacity = 0.98;
       };
     };
   };
