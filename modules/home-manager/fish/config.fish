@@ -140,6 +140,8 @@ function create_envrc
     echo 'export UV_PROJECT_ENVIRONMENT=$HOME/.virtualenvs/(basename $PWD)' > .envrc
 end
 
+starship init fish | source
+enable_transience
 #-------------------------------------------------------------------------------
 # JAVA
 #-------------------------------------------------------------------------------
