@@ -89,6 +89,7 @@
       settings = {
         font-family = "JetBrainsMono Nerd Font";  # or any other Nerd Font
         font-size = 14;
+        font-thicken = true
         theme = "catppuccin-mocha";
         background-opacity = 0.98;
       };
