@@ -30,6 +30,7 @@
 
       set -xg XDG_CONFIG_HOME ~/.config
       set -xg VISUAL nvim
+			set -gx PATH $PATH /Applications/Obsidian.app/Contents/MacOS
 
       # Makes C^z go back to the background task (vim 99% of the time)
       bind \cz 'fg'

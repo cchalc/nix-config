@@ -54,6 +54,10 @@
       cachix
       pandoc
       whois
+      wget
+
+			# ai
+			opencode
 
       # training
       exercism
@@ -89,8 +93,8 @@
       settings = {
         font-family = "JetBrainsMono Nerd Font";  # or any other Nerd Font
         font-size = 14;
-        font-thicken = true
-        theme = "catppuccin-mocha";
+        font-thicken = true;
+        theme = "Catppuccin Macchiato";
         background-opacity = 0.98;
       };
     };
