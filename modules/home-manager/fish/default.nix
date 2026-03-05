@@ -102,6 +102,8 @@
       jn = "jj new";
       jp = "jj git push";
       js = "jj st";
+
+			isaac = "dbexec repo run isaac";
     };
 
     plugins = [
