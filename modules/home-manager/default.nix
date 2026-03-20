@@ -31,6 +31,7 @@
       yarn
       duckdb
       bun
+      pnpm
 
       # elixir
       elixir_1_15
@@ -55,6 +56,7 @@
       pandoc
       whois
       wget
+      just
 
 			# ai
 			opencode
