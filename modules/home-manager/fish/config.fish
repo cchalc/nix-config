@@ -141,6 +141,7 @@ function create_envrc
 end
 
 starship init fish | source
+atuin init fish | source
 enable_transience
 #-------------------------------------------------------------------------------
 # JAVA

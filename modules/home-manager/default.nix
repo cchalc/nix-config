@@ -67,11 +67,17 @@
       # cloud stuff
       google-cloud-sdk
       awscli2
+      pgcli
     ];
   };
 
   programs = {
     fzf.enable = true;
+
+    atuin = {
+      enable = true;
+      enableFishIntegration = true;
+    };
 
     bat = {
       enable = true;
