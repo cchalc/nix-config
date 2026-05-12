@@ -17,13 +17,20 @@
     interactiveShellInit = ''
       set -Ux CARGO_HOME ~/.cache/cargo/
       set -Ux PNPM_HOME ~/.cache/pnpm/
+      set -Ux JAVA_HOME ~/.nix-profile/bin/java
+      set -Ux NPM_HOME ~/.npm-global/
+      set -Ux LOCAL_HOME ~/.local/
       set -U fish_greeting
 
       fish_add_path $PNPM_HOME
       fish_add_path $CARGO_HOME/bin/
+      fish_add_path $JAVA_HOME
+      fish_add_path $NPM_HOME/bin/
+      fish_add_path $LOCAL_HOME/bin/
 
       set -xg XDG_CONFIG_HOME ~/.config
       set -xg VISUAL nvim
+			set -gx PATH $PATH /Applications/Obsidian.app/Contents/MacOS
 
       # Makes C^z go back to the background task (vim 99% of the time)
       bind \cz 'fg'
@@ -32,6 +39,7 @@
       zoxide init fish | source
 
 			set -g SHELL ${pkgs.fish}/bin/fish
+
     '';
     shellAbbrs = {
       vi = "nvim";
@@ -87,6 +95,15 @@
       gp = "git push";
       gs = "git status";
       gt = "git tag";
+      ce = "echo 'export UV_PROJECT_ENVIRONMENT=$HOME/.virtualenvs/$(basename $PWD)' > .envrc";
+
+      jd = "jj desc";
+      jf = "jj git fetch";
+      jn = "jj new";
+      jp = "jj git push";
+      js = "jj st";
+
+			isaac = "dbexec repo run isaac";
     };
 
     plugins = [

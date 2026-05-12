@@ -40,7 +40,7 @@
 
       # utilities
       nerdtree
-      ctrlp
+      ctrlp-vim
       vim-abolish
       vim-repeat # cs"'...
       vim-commentary # gcap

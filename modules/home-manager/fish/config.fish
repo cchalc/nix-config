@@ -1,3 +1,4 @@
+# incorrect fish config file ... see ./config
 #-------------------------------------------------------------------------------
 # SSH Agent
 #-------------------------------------------------------------------------------
@@ -134,3 +135,31 @@ set -gx EDITOR nvim
 # `fnix -p go` to get an environment with Go but use the fish shell along
 # with it.
 alias fnix "nix-shell --run fish"
+
+function create_envrc
+    echo 'export UV_PROJECT_ENVIRONMENT=$HOME/.virtualenvs/(basename $PWD)' > .envrc
+end
+
+starship init fish | source
+atuin init fish | source
+enable_transience
+#-------------------------------------------------------------------------------
+# JAVA
+#-------------------------------------------------------------------------------
+#function set_java_home
+#    # Define the potential JDK 17 installation paths
+#    set jdk_paths ~/.nix-profile/bin/java 
+#
+#    # Check each path to see if it exists
+#    for path in $jdk_paths
+#        if test -d $path
+#            # JDK 17 is found, set JAVA_HOME and update PATH
+#            set -x JAVA_HOME $path
+#            set -x PATH $JAVA_HOME/bin $PATH
+#            echo "JAVA_HOME set to $JAVA_HOME"
+#            return
+#        end
+#    end
+#
+#end
+#
