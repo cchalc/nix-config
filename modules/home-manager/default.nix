@@ -27,7 +27,7 @@
       # python312Packages.databricks-sql-connector
       # python312Packages.databricks-connect
       jdk17
-      nodejs_20
+      nodejs_22
       yarn
       duckdb
       bun
