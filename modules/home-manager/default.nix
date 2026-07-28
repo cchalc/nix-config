@@ -4,6 +4,7 @@
     ./direnv
     ./fish
     ./git
+    ./herdr
     ./nvim
     ./jujutsu
     ./tmux
@@ -102,7 +103,10 @@
     ghostty = {
       enable = true;
       package = pkgs.ghostty-bin; # macOS
-      enableFishIntegration = true;
+      # Integration is sourced manually in the fish module instead: the built-in
+      # emits an unguarded `source`, which breaks when a ghostty-based terminal
+      # (e.g. cmux) sets GHOSTTY_RESOURCES_DIR to a bundle lacking the file.
+      enableFishIntegration = false;
       settings = {
         font-family = "JetBrainsMono Nerd Font";  # or any other Nerd Font
         font-size = 14;

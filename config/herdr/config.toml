@@ -1,0 +1,36 @@
+# herdr configuration — managed by nix-config (symlinked from repo ./config).
+# Print the full annotated default with `herdr --default-config`.
+# Reload a running server after edits with `herdr server reload-config`.
+#
+# NOTE: herdr's default keybindings already match this machine's tmux setup —
+# prefix+h/j/k/l focus panes, prefix+c new tab, prefix+n/p next/prev tab,
+# prefix+minus split down, prefix+v split right, prefix+z zoom, prefix+q detach,
+# prefix+[ copy/scroll. So we only override what differs from the defaults below.
+
+[keys]
+# Match the tmux leader (default is ctrl+b).
+prefix = "ctrl+s"
+
+[terminal]
+# Match the login shell. Empty would fall back to $SHELL, but pin it explicitly.
+default_shell = "fish"
+# New panes/tabs inherit the source pane's working directory.
+new_cwd = "follow"
+
+[theme]
+# herdr ships a single `catppuccin` (dark) built-in — there is no macchiato
+# variant. Ghostty/tmux here use Catppuccin Macchiato, so nudge the palette
+# toward it via [theme.custom] below.
+name = "catppuccin"
+auto_switch = false
+
+[theme.custom]
+# Ghostty's Macchiato surface + text (see modules/home-manager/default.nix).
+panel_bg = "#24273a"
+# Macchiato accent (blue). Tweak to mauve #c6a0f6 or another Macchiato hue to taste.
+accent = "#8aadf4"
+
+[session]
+# Restore supported agents (Claude, Pi, …) into their native sessions after a
+# herdr server restart. Requires the official integrations installed (see readme).
+resume_agents_on_restore = true

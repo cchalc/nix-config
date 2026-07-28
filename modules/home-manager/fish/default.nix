@@ -23,6 +23,16 @@
       zoxide init fish | source
 
       set -g SHELL ${pkgs.fish}/bin/fish
+
+      # Ghostty shell integration (sourced manually — programs.ghostty's built-in
+      # integration is disabled; see modules/home-manager/default.nix). Guard on
+      # the FILE existing, not just the var: ghostty-based terminals like cmux set
+      # GHOSTTY_RESOURCES_DIR to a bundle that ships terminfo/themes but no
+      # shell-integration, which would otherwise error on every shell start.
+      if set -q GHOSTTY_RESOURCES_DIR
+        set -l __ghostty_integration "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
+        test -f "$__ghostty_integration"; and source "$__ghostty_integration"
+      end
     '';
     shellAbbrs = {
       vi = "nvim";

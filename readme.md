@@ -79,6 +79,32 @@ BUN_CONFIG_REGISTRY=https://npm-proxy.cloud.databricks.com/ bun install -g hunkd
 
 Binary lands at `~/.cache/.bun/bin/hunk` (already on `PATH` via `home.nix`).
 
+### Herdr (agent workspace manager)
+
+Nix pins the herdr binary (`modules/home-manager/herdr`) and its config
+(`config/herdr/config.toml`, symlinked to `~/.config/herdr/config.toml`). The
+config ports the tmux ergonomics — `ctrl-s` prefix, `hjkl` pane nav, Catppuccin —
+so it's ready on switch. Launch it in any project with `herdr`.
+
+Agent integrations write lifecycle hooks into each agent's own config, so they
+can't be managed declaratively. Run these once (re-run on a new machine):
+
+```fish
+herdr integration install claude
+herdr integration install cursor
+herdr integration install pi
+herdr integration status   # confirm all three report installed
+```
+
+Agents without an integration (e.g. omnigent, codex) still work — herdr detects
+them via screen manifests, just without authoritative state. Validate config
+edits with `herdr config check`; reload a running server with
+`herdr server reload-config`.
+
+Version bumps: edit `version` in `modules/home-manager/herdr/default.nix`, then
+`nix-prefetch-url <url>` and `nix hash to-sri --type sha256 <hash>` for the new
+`hash`.
+
 ## references
 
 [repo](https://github.com/synecdokey/dotfiles/tree/dev)
