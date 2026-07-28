@@ -8,6 +8,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    # hunk: blocked on corp firewall — npm registry deps unreachable via Nix sandbox. Installed via bun + Databricks npm proxy instead.
+    # hunk = {
+    #   url = "github:modem-dev/hunk";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = inputs @ {

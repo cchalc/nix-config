@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nix flake *)",
+      "Bash(gh auth *)",
+      "Bash(nix build *)",
+      "Bash(curl *)",
+      "Bash(sudo sed -i.bak -E 's|^\\([^#].*registry\\\\.\\(npmjs\\\\.org|yarnpkg\\\\.com\\).*\\)$|# \\\\1|' /etc/hosts)",
+      "Read(//private/etc/**)",
+      "Bash(bun --version)",
+      "Read(//Users/christopher.chalcraft/**)",
+      "Bash(bun install *)",
+      "Read(//private/tmp/**)",
+      "Bash(bun pm *)",
+      "Bash(BUN_CONFIG_REGISTRY=https://npm-proxy.cloud.databricks.com/ bun install -g hunkdiff)",
+      "Bash(/Users/christopher.chalcraft/.cache/.bun/bin/hunk --version)",
+      "Bash(/Users/christopher.chalcraft/.cache/.bun/bin/hunk *)",
+      "Bash(kill %1)",
+      "Bash(pkill -f \"bin/hunk\")",
+      "Bash(/Users/christopher.chalcraft/superset/bin/superset --version)"
+    ]
+  }
+}

@@ -68,6 +68,11 @@
       google-cloud-sdk
       awscli2
       pgcli
+      postgresql_16 # local backend for metabase; bootstrap manually (see home.nix MB_DB_* vars)
+      metabase
+
+			# macOS
+			terminal-notifier
     ];
   };
 
@@ -104,6 +109,8 @@
         font-thicken = true;
         theme = "Catppuccin Macchiato";
         background-opacity = 0.98;
+				foreground = "#cad3f4";
+				background = "#24273a";
       };
     };
   };
