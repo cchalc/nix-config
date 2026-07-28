@@ -1,0 +1,21 @@
+[metadata]
+name = "aws-profiles"
+description = "List and switch AWS CLI profiles"
+requirements = ["aws", "grep", "nu"]
+
+[source]
+command = "grep '\\[profile' ~/.aws/config | sed 's/\\[profile //' | sed 's/\\]//'"
+
+[preview]
+command = "aws configure list --profile '{}'"
+
+# [ui.preview_panel]
+# size = 40
+
+[keybindings]
+enter = "actions:export"
+
+[actions.export]
+description = "Export the selected profile (sets AWS_PROFILE)"
+command = "^sh -c 'export AWS_PROFILE=\"{}\"; echo AWS_PROFILE set to {}; exec $SHELL'"
+mode = "execute"

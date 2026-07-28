@@ -1,0 +1,148 @@
+# AeroSpace configuration — managed by nix-config (symlinked from repo ./config).
+# Adapted from omerxx/dotfiles. Guide: https://nikitabobko.github.io/AeroSpace/guide
+# Reload after edits from the `service` mode (alt-shift-; then esc) or the menu bar.
+
+after-startup-command = ['exec-and-forget sketchybar']
+
+# Notify Sketchybar about workspace change, and (re)apply JankyBorders styling.
+exec-on-workspace-change = ['/bin/bash', '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
+  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=0'
+]
+
+# Leave start-at-login to the AeroSpace menu-bar app itself (see the aerospace
+# module note) so nix doesn't fight its login-item registration.
+start-at-login = false
+
+# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# See: https://nikitabobko.github.io/AeroSpace/guide#layouts
+accordion-padding = 300
+
+# Possible values: tiles|accordion
+default-root-container-layout = 'tiles'
+
+# Possible values: horizontal|vertical|auto
+default-root-container-orientation = 'auto'
+
+# Mouse follows focus when focused monitor changes.
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+automatically-unhide-macos-hidden-apps = false
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'telegram'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'finder'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'safari'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'mail'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'trello'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'quicktime'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'discord'
+run = 'layout floating'
+
+# Possible values: (qwerty|dvorak)
+[key-mapping]
+preset = 'qwerty'
+
+# Gaps between windows (inner-*) and between monitor edges (outer-*).
+# The main monitor gets large outer gaps to leave room for the vertical
+# (position=right) sketchybar; other monitors use tight gaps.
+[gaps]
+inner.horizontal = [{ monitor.main = 40 }, 10]
+outer.left =       [{ monitor.main = 350 }, 20]
+outer.right =      [{ monitor.main = 350 }, 20]
+outer.bottom =     [{ monitor.main = 100 }, 10]
+outer.top =        [{ monitor.main = 100 }, 10]
+
+# 'main' binding mode declaration.
+# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+[mode.main.binding]
+
+alt-ctrl-shift-f = 'fullscreen'
+alt-ctrl-f = 'layout floating tiling'
+
+alt-shift-left = 'join-with left'
+alt-shift-down = 'join-with down'
+alt-shift-up = 'join-with up'
+alt-shift-right = 'join-with right'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#layout
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+
+# Focus. h/j/k/l mirror the tmux/herdr pane-nav ergonomics on this machine.
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# Move.
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# Resize.
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
+
+# Workspaces.
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+
+# Move focused window to workspace.
+alt-shift-1 = 'move-node-to-workspace 1 --focus-follows-window'
+alt-shift-2 = 'move-node-to-workspace 2 --focus-follows-window'
+alt-shift-3 = 'move-node-to-workspace 3 --focus-follows-window'
+alt-shift-4 = 'move-node-to-workspace 4 --focus-follows-window'
+
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+# Binding modes.
+alt-shift-semicolon = 'mode service'
+alt-shift-enter = 'mode apps'
+
+# App launchers (adapted to this machine). alt-w opens Ghostty (this machine's
+# terminal); Obsidian and Slack are installed. omerxx's WezTerm/Zen/Brain.fm/
+# Final Cut binds are dropped since those apps aren't present here.
+alt-w = 'exec-and-forget open -a Ghostty'
+alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
+alt-s = 'exec-and-forget open -a /Applications/Slack.app'
+alt-q = 'exec-and-forget open -a "/System/Applications/QuickTime Player.app"'
+alt-f = 'exec-and-forget open -a /System/Library/CoreServices/Finder.app'
+
+# 'service' binding mode declaration.
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main'] # reset layout
+f = ['layout floating tiling', 'mode main'] # toggle floating/tiling
+backspace = ['close-all-windows-but-current', 'mode main']
+
+[mode.apps.binding]
+alt-w = ['exec-and-forget open -a Ghostty', 'mode main']
+
+# omerxx's [workspace-to-monitor-force-assignment] (his Dell monitors) is
+# intentionally omitted — those patterns won't match this machine's displays.

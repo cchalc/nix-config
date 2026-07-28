@@ -1,0 +1,18 @@
+[metadata]
+name = "wt"
+description = "A channel to list worktrunk worktrees"
+
+[source]
+command = "wt list --format json | jq '.[].branch'"
+
+[preview]
+command = "wt switch '{}'; git log --oneline -10"
+
+[ui]
+# customize the UI
+
+[keybindings]
+# customize keybindings
+
+[actions]
+# define external actions

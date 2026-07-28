@@ -105,6 +105,41 @@ Version bumps: edit `version` in `modules/home-manager/herdr/default.nix`, then
 `nix-prefetch-url <url>` and `nix hash to-sri --type sha256 <hash>` for the new
 `hash`.
 
+### Window management (AeroSpace + sketchybar)
+
+AeroSpace (`modules/home-manager/aerospace`) replaces yabai as the tiling window
+manager, with its config at `config/aerospace/aerospace.toml` (adapted from
+omerxx/dotfiles: `hjkl` focus, `alt-shift-hjkl` move, `alt-1..4` workspaces,
+`alt-w` → Ghostty, `alt-o` → Obsidian, `alt-s` → Slack). Sketchybar (a status
+bar) and JankyBorders (active-window outlines) live in
+`modules/home-manager/sketchybar` with config under `config/sketchybar/`.
+AeroSpace launches both (`after-startup-command` / `exec-on-workspace-change`),
+so they need no separate login items.
+
+First-run setup (re-run on a new machine):
+
+```fish
+yabai --stop-service          # if a yabai service is still loaded from before
+open -a AeroSpace             # launch once, then grant Accessibility permission
+                              # (System Settings → Privacy & Security → Accessibility)
+                              # and enable "Start at login" from its menu-bar icon
+```
+
+Reload AeroSpace config from `service` mode: `alt-shift-;` then `esc`. The
+sketchybar app-glyph font (`sketchybar-app-font`, used by the spaces item) is
+installed via nix but macOS may not register it until it's also added in Font
+Book — the bar still works without it (glyphs fall back to boxes). Sketchybar is
+the least portable piece; expect minor per-item tweaking.
+
+### Television (`tv` fuzzy finder)
+
+`modules/home-manager/television` installs `tv`; config + cable channels are at
+`config/television/` (from omerxx, Catppuccin theme). Fish integration
+(`tv init fish | source`) binds `ctrl-t` to tv smart-autocomplete — this
+supersedes fzf's `ctrl-t` file widget. atuin keeps `ctrl-r`; tv's command
+history is remapped to `ctrl-alt-r` to avoid the collision (see
+`config/television/config.toml`).
+
 ## references
 
 [repo](https://github.com/synecdokey/dotfiles/tree/dev)

@@ -1,12 +1,15 @@
 { config, lib, pkgs, ... }:
 {
   imports = [
+    ./aerospace
     ./direnv
     ./fish
     ./git
     ./herdr
     ./nvim
     ./jujutsu
+    ./sketchybar
+    ./television
     ./tmux
   ];
 
@@ -47,7 +50,6 @@
       rustup
       starship
       stylua
-      yabai
       zoxide
       tree
       htop

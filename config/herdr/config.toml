@@ -10,6 +10,15 @@
 [keys]
 # Match the tmux leader (default is ctrl+b).
 prefix = "ctrl+s"
+# Cycle the agent attention queue. Herdr ships these unbound; bind them here.
+# shift+j/k mirror the pane-focus movement (down = next, up = previous) without
+# colliding with focus_pane_down/up (prefix+j / prefix+k).
+next_agent = "prefix+shift+j"
+previous_agent = "prefix+shift+k"
+# Jump straight to agent N by attention order (prefix+alt+1..9). Handy when
+# running several agents in parallel. Note: ctrl+alt chords can be
+# terminal-dependent; if it doesn't register, use the sidebar or prefix+w.
+focus_agent = "prefix+alt+1..9"
 
 [terminal]
 # Match the login shell. Empty would fall back to $SHELL, but pin it explicitly.
@@ -34,3 +43,13 @@ accent = "#8aadf4"
 # Restore supported agents (Claude, Pi, …) into their native sessions after a
 # herdr server restart. Requires the official integrations installed (see readme).
 resume_agents_on_restore = true
+
+[ui.toast]
+# Surface a macOS notification when an agent in a background workspace changes
+# state (e.g. pi goes blocked/done) so parallel agents don't wait unnoticed.
+delivery = "system"
+delay_seconds = 1
+
+[ui.sound]
+# Play a sound on background agent state changes too.
+enabled = true

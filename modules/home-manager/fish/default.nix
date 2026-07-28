@@ -22,6 +22,11 @@
       starship init fish | source
       zoxide init fish | source
 
+      # television (tv) shell integration. Binds ctrl-t to tv smart-autocomplete
+      # (superseding fzf's ctrl-t file widget); atuin keeps ctrl-r. See
+      # config/television/config.toml [shell_integration.keybindings].
+      tv init fish | source
+
       set -g SHELL ${pkgs.fish}/bin/fish
 
       # Ghostty shell integration (sourced manually — programs.ghostty's built-in
