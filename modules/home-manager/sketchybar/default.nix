@@ -3,9 +3,14 @@
   # (see modules/home-manager/aerospace). Config lives in config/sketchybar/,
   # symlinked to ~/.config/sketchybar via the top-level home.file.".config".
   #
-  # sketchybar-app-font provides the app glyphs used by items/spaces.sh. macOS
-  # may not pick it up until it's also installed in Font Book — the bar still
-  # works without it (glyphs fall back to boxes). See readme for that step.
+  # Fonts the bar needs (installed via home.packages → linked into
+  # ~/Library/Fonts/HomeManager so macOS/sketchybar can resolve them):
+  #   - sketchybar-app-font : app glyphs used by items/spaces.sh
+  #   - nerd-fonts.jetbrains-mono : main bar FONT + separator glyph. omerxx's
+  #     config hardcodes "SF Pro"/"Hack Nerd Font", which aren't installed on
+  #     this machine, so config/sketchybar/sketchybarrc + items/spaces.sh are
+  #     repointed at "JetBrainsMono Nerd Font" (already this machine's terminal
+  #     font — has Bold/Semibold/Heavy/Black weights the bar uses).
   #
   # AeroSpace launches `sketchybar` on startup and `borders` on workspace
   # change (after-startup-command / exec-on-workspace-change in aerospace.toml),
@@ -14,5 +19,6 @@
     sketchybar
     jankyborders
     sketchybar-app-font
+    nerd-fonts.jetbrains-mono
   ];
 }

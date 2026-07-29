@@ -78,6 +78,18 @@
             string trim)
         '';
       };
+      # fzf-pick an AeroSpace window and focus it (ported from omerxx's nushell
+      # `ff`). `aerospace list-windows --all` prints "<id> | <app> | <title>",
+      # so the first field is the window id.
+      ff = {
+        description = "fzf-pick an AeroSpace window and focus it";
+        body = ''
+          set -l win (aerospace list-windows --all | fzf --no-sort)
+          if test -n "$win"
+            aerospace focus --window-id (echo $win | string split '|' | head -1 | string trim)
+          end
+        '';
+      };
     };
     shellAliases = {
       ga = "git add";
@@ -96,6 +108,9 @@
       jp = "jj git push";
       js = "jj st";
       isaac = "dbexec repo run isaac";
+      # window management / agents
+      as = "aerospace"; # omerxx's shorthand; pairs with the `ff` function above
+      hd = "herdr";     # agent workspace manager (no upstream alias — herdr postdates omerxx's configs)
     };
     plugins = [ ];
   };

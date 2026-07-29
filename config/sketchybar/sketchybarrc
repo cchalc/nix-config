@@ -6,7 +6,7 @@ source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
 ITEM_DIR="$HOME/.config/sketchybar/items" # Directory where the items are configured
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins" # Directory where all the plugin scripts are stored
 
-FONT="SF Pro" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
+FONT="JetBrainsMono Nerd Font" # installed via the sketchybar nix module (was "SF Pro", not present on this machine)
 SPACE_CLICK_SCRIPT="aerospace workspace \$SID 2>/dev/null" # Clicking a space focuses that AeroSpace workspace (yabai replaced)
 
 PADDINGS=3 # All paddings use this value (icon, label, background)
