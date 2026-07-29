@@ -33,9 +33,26 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'telegram'
+if.app-name-regex-substring = 'slack'
 run = 'layout floating'
 
+[[on-window-detected]]
+if.app-name-regex-substring = 'whatsapp'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'chrome'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'omnigent'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'obsidian'
+run = 'layout floating'
+
+# Kept system apps.
 [[on-window-detected]]
 if.app-name-regex-substring = 'finder'
 run = 'layout floating'
@@ -46,18 +63,6 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'mail'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'trello'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'quicktime'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'discord'
 run = 'layout floating'
 
 # Possible values: (qwerty|dvorak)
