@@ -52,6 +52,11 @@ run = 'layout floating'
 if.app-name-regex-substring = 'obsidian'
 run = 'layout floating'
 
+# Claude desktop app (includes Claude Cowork windows — app-name is "Claude").
+[[on-window-detected]]
+if.app-name-regex-substring = 'claude'
+run = 'layout floating'
+
 # Kept system apps.
 [[on-window-detected]]
 if.app-name-regex-substring = 'finder'
@@ -70,20 +75,32 @@ run = 'layout floating'
 preset = 'qwerty'
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
-# The main monitor gets large outer gaps to leave room for the vertical
-# (position=right) sketchybar; other monitors use tight gaps.
+# Small gaps so tiled windows fill the screen. The main monitor keeps a wider
+# outer.right (~80) to leave room for the vertical (position=right) sketchybar
+# (~50 bar + 10 margin); all other edges use a thin 8px gutter.
 [gaps]
-inner.horizontal = [{ monitor.main = 40 }, 10]
-outer.left =       [{ monitor.main = 350 }, 20]
-outer.right =      [{ monitor.main = 350 }, 20]
-outer.bottom =     [{ monitor.main = 100 }, 10]
-outer.top =        [{ monitor.main = 100 }, 10]
+inner.horizontal = [{ monitor.main = 8 }, 8]
+inner.vertical =   [{ monitor.main = 8 }, 8]
+outer.left =       [{ monitor.main = 8 }, 8]
+outer.right =      [{ monitor.main = 80 }, 8]
+outer.bottom =     [{ monitor.main = 8 }, 8]
+outer.top =        [{ monitor.main = 8 }, 8]
 
 # 'main' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.main.binding]
 
-alt-ctrl-shift-f = 'fullscreen'
+# Zoom / fullscreen. `fullscreen` only acts on TILED windows, but this config
+# auto-floats many apps (see on-window-detected rules), so we first force the
+# focused window to tiling, then fullscreen it — this makes alt-f zoom ANY
+# window regardless of float state. Pressing alt-f again toggles fullscreen off
+# (the `layout tiling` is then a harmless no-op on the already-tiled window).
+# --no-outer-gaps fills the whole screen (plain fullscreen keeps the large
+# main-monitor outer gaps below, leaving ~350px empty on each side).
+alt-f = ['layout tiling', 'fullscreen --no-outer-gaps']
+alt-ctrl-shift-f = ['layout tiling', 'fullscreen --no-outer-gaps']
+# Pop a window out to floating / back into the tiles (order of args doesn't
+# matter — it toggles). This is how you "pop out" and "pop in" a window.
 alt-ctrl-f = 'layout floating tiling'
 
 alt-shift-left = 'join-with left'
@@ -123,6 +140,17 @@ alt-shift-2 = 'move-node-to-workspace 2 --focus-follows-window'
 alt-shift-3 = 'move-node-to-workspace 3 --focus-follows-window'
 alt-shift-4 = 'move-node-to-workspace 4 --focus-follows-window'
 
+# Cycle workspaces with [ / ] (prev / next), wrapping around. Mirrors the
+# herdr prev/next-workspace bindings (prefix+[ / prefix+]) for a consistent
+# "brackets = navigate, shift = bring the window along" scheme across tools.
+# --no-stdin: workspace next|prev reads stdin; without this flag it errors when
+# there's no TTY (AeroSpace v0.20+ breaking change). Explicit is safe here.
+alt-leftSquareBracket = 'workspace --wrap-around --no-stdin prev'
+alt-rightSquareBracket = 'workspace --wrap-around --no-stdin next'
+# Move the focused window to the prev/next workspace and follow it there.
+alt-shift-leftSquareBracket = 'move-node-to-workspace --wrap-around --no-stdin --focus-follows-window prev'
+alt-shift-rightSquareBracket = 'move-node-to-workspace --wrap-around --no-stdin --focus-follows-window next'
+
 alt-tab = 'workspace-back-and-forth'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
@@ -137,7 +165,8 @@ alt-w = 'exec-and-forget open -a Ghostty'
 alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
 alt-s = 'exec-and-forget open -a /Applications/Slack.app'
 alt-q = 'exec-and-forget open -a "/System/Applications/QuickTime Player.app"'
-alt-f = 'exec-and-forget open -a /System/Library/CoreServices/Finder.app'
+# alt-e opens Finder (alt-f is now zoom/fullscreen — see the binding above).
+alt-e = 'exec-and-forget open -a /System/Library/CoreServices/Finder.app'
 
 # 'service' binding mode declaration.
 [mode.service.binding]
