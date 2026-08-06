@@ -109,7 +109,15 @@ in
   };
 
   programs = {
-    fzf.enable = true;
+    fzf = {
+      enable = true;
+      # Atuin owns ctrl-r (history) and television owns ctrl-t — see
+      # modules/home-manager/fish/default.nix. Disabling fzf's history widget
+      # resolves home-manager's "fzf and a history manager both configure Ctrl-R"
+      # warning and makes the existing precedence explicit rather than
+      # order-dependent (atuin merely sourced later and won by accident).
+      historyWidget.command = "";
+    };
 
     atuin = {
       enable = true;
