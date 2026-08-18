@@ -25,7 +25,10 @@ a.out
 # Logs and databases #
 ######################
 *.log
-*.sql
+# NOTE: *.sql is deliberately NOT ignored — SQL is source code (skill queries, migrations,
+# dbt models). Ignoring the extension silently dropped 15 query files from a commit with no
+# error, shipping a non-functional skill to a PR. Ignore DB dumps by name in the repo that
+# needs it (e.g. dump.sql, *.dump.sql) rather than blanket-ignoring the extension.
 *.sqlite
 *.retry
 

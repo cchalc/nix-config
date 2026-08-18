@@ -18,6 +18,10 @@
 
     sessionVariables = {
       NPM_CONFIG_PREFIX = "$HOME/.npm-global";
+      # corp firewall blocks registry.npmjs.org; env var (not ~/.npmrc) so it also
+      # applies to agents that run with a sandboxed HOME (e.g. pi's pi-home)
+      NPM_CONFIG_REGISTRY = "https://npm-proxy.cloud.databricks.com/";
+      BUN_CONFIG_REGISTRY = "https://npm-proxy.cloud.databricks.com/";
       CARGO_HOME = "$HOME/.cache/cargo";
       PNPM_HOME = "$HOME/.cache/pnpm";
       JAVA_HOME = "${pkgs.jdk17}/lib/openjdk";

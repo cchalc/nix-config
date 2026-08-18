@@ -19,6 +19,11 @@ previous_agent = "prefix+shift+k"
 # running several agents in parallel. Note: ctrl+alt chords can be
 # terminal-dependent; if it doesn't register, use the sidebar or prefix+w.
 focus_agent = "prefix+alt+1..9"
+# Cycle workspaces with [ / ] (prev / next). Mirrors the AeroSpace bindings
+# (alt+[ / alt+]) so "brackets = navigate prev/next" is consistent across the
+# window manager and the agent multiplexer. herdr ships these unbound.
+previous_workspace = "prefix+["
+next_workspace = "prefix+]"
 
 [terminal]
 # Match the login shell. Empty would fall back to $SHELL, but pin it explicitly.
