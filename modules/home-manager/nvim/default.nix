@@ -6,6 +6,9 @@
   programs.neovim = {
     enable = true;
     vimAlias = true;
+    # Keep legacy providers (stateVersion < 26.05 default) explicit to silence warnings.
+    withRuby = true;
+    withPython3 = true;
 		plugins = let
 			nvim-treesitter-with-plugins = pkgs.vimPlugins.nvim-treesitter.withPlugins (treesitter-plugins:
 				with treesitter-plugins; [
