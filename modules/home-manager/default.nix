@@ -67,7 +67,7 @@ in
       pnpm
 
       # elixir
-      elixir_1_18 # was elixir_1_15; removed in nixpkgs bump (erlang_26 EOL)
+      beamPackages.elixir_1_18 # was elixir_1_15; removed in nixpkgs bump (erlang_26 EOL)
       livebook
 
       # other
@@ -90,9 +90,9 @@ in
       wget
       just
 
-			# ai
-			opencode
-			gemini-cli
+      # ai
+      opencode
+      gemini-cli
 
       # training
       exercism
@@ -106,8 +106,8 @@ in
       flyctl   # fly.io CLI — omnigent persistence/sandbox (setup/PLAN Stage 3)
       railway  # railway.app CLI — omnigent persistence/sandbox (setup/PLAN Stage 3)
 
-			# macOS
-			terminal-notifier
+      # macOS
+      terminal-notifier
     ];
   };
 
@@ -155,8 +155,8 @@ in
         font-thicken = true;
         theme = "Catppuccin Macchiato";
         background-opacity = 0.98;
-				foreground = "#cad3f4";
-				background = "#24273a";
+        foreground = "#cad3f4";
+        background = "#24273a";
       };
     };
   };

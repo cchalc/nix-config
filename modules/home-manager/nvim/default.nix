@@ -9,17 +9,17 @@
     # Keep legacy providers (stateVersion < 26.05 default) explicit to silence warnings.
     withRuby = true;
     withPython3 = true;
-		plugins = let
-			nvim-treesitter-with-plugins = pkgs.vimPlugins.nvim-treesitter.withPlugins (treesitter-plugins:
-				with treesitter-plugins; [
-					bash
-					lua
-					nix
-					python
-					elixir
-      ]);
-  in
-		with pkgs.vimPlugins; [
+    plugins = let
+      nvim-treesitter-with-plugins = pkgs.vimPlugins.nvim-treesitter.withPlugins (treesitter-plugins:
+        with treesitter-plugins; [
+          bash
+          lua
+          nix
+          python
+          elixir
+        ]);
+    in
+    with pkgs.vimPlugins; [
       #specific languages
       vim-nix
       vim-markdown
