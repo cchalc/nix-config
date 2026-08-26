@@ -17,7 +17,8 @@
       "Bash(/Users/christopher.chalcraft/.cache/.bun/bin/hunk *)",
       "Bash(kill %1)",
       "Bash(pkill -f \"bin/hunk\")",
-      "Bash(/Users/christopher.chalcraft/superset/bin/superset --version)"
+      "Bash(/Users/christopher.chalcraft/superset/bin/superset --version)",
+      "Bash(set -e)"
     ]
   }
 }

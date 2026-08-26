@@ -92,6 +92,7 @@ in
 
 			# ai
 			opencode
+			gemini-cli
 
       # training
       exercism
@@ -102,6 +103,8 @@ in
       pgcli
       postgresql_16 # local backend for metabase; bootstrap manually (see home.nix MB_DB_* vars)
       metabase
+      flyctl   # fly.io CLI — omnigent persistence/sandbox (setup/PLAN Stage 3)
+      railway  # railway.app CLI — omnigent persistence/sandbox (setup/PLAN Stage 3)
 
 			# macOS
 			terminal-notifier
