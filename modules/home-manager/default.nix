@@ -106,6 +106,9 @@ in
       flyctl   # fly.io CLI — omnigent persistence/sandbox (setup/PLAN Stage 3)
       railway  # railway.app CLI — omnigent persistence/sandbox (setup/PLAN Stage 3)
 
+      # dev tooling
+      aube # jdx/aube (mise is wired via programs.mise below)
+
       # macOS
       terminal-notifier
     ];
@@ -125,6 +128,13 @@ in
     atuin = {
       enable = true;
       enableFishIntegration = true;
+    };
+
+    # jdx/mise — per-project runtime/tool version manager. enableFishIntegration
+    # defaults to true, so this also installs the fish activation hook that makes
+    # per-directory mise.toml version switching work automatically.
+    mise = {
+      enable = true;
     };
 
     bat = {
