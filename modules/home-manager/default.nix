@@ -128,6 +128,13 @@ in
     atuin = {
       enable = true;
       enableFishIntegration = true;
+      # Mirrors omerxx/dotfiles atuin/config.toml. sync.records enables sync v2
+      # data format but does nothing until the user runs `atuin login`/`register`.
+      settings = {
+        style = "compact";
+        enter_accept = true;
+        sync.records = true;
+      };
     };
 
     # jdx/mise — per-project runtime/tool version manager. enableFishIntegration
