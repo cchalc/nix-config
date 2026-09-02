@@ -10,9 +10,9 @@ exec-on-workspace-change = ['/bin/bash', '-c',
   'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=0'
 ]
 
-# Leave start-at-login to the AeroSpace menu-bar app itself (see the aerospace
-# module note) so nix doesn't fight its login-item registration.
-start-at-login = false
+# Start-at-login is now managed by nix (see the aerospace module note).
+# Sketchybar has its own launchd agent, so they both start at login.
+start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true

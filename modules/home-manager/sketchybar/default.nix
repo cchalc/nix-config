@@ -21,4 +21,18 @@
     sketchybar-app-font
     nerd-fonts.jetbrains-mono
   ];
+
+  # Start the status bar at login, independent of AeroSpace. AeroSpace's
+  # after-startup-command also runs `sketchybar`, which is harmless here
+  # because KeepAlive means launchd already owns a single instance.
+  launchd.agents.sketchybar = {
+    enable = true;
+    config = {
+      ProgramArguments = [ "${pkgs.sketchybar}/bin/sketchybar" ];
+      RunAtLoad = true;
+      KeepAlive = true;
+      StandardOutPath = "/tmp/sketchybar.out.log";
+      StandardErrorPath = "/tmp/sketchybar.err.log";
+    };
+  };
 }
