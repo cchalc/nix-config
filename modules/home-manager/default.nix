@@ -93,6 +93,7 @@ in
       # ai
       opencode
       gemini-cli
+      cursor-cli # Cursor's headless coding agent — provides the `cursor-agent` binary
 
       # training
       exercism
