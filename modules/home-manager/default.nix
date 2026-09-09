@@ -99,8 +99,9 @@ in
       exercism
 
       # cloud stuff
-      google-cloud-sdk
-      awscli2
+      google-cloud-sdk # gcloud
+      awscli2          # aws
+      azure-cli        # az
       pgcli
       postgresql_16 # local backend for metabase; bootstrap manually (see home.nix MB_DB_* vars)
       metabase
