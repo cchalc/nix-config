@@ -1,0 +1,543 @@
+# Instincts generated from https://github.com/cchalc/nix-config
+# Generated: 2026-05-12T23:22:04.979Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: nix-config-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/cchalc/nix-config
+---
+
+# Nix Config Commit Length
+
+## Action
+
+Keep commit messages concise (~13 characters)
+
+## Evidence
+
+- Average commit message length: 13 chars
+- Based on 56 commits
+
+---
+id: nix-config-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/cchalc/nix-config
+---
+
+# Nix Config Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: nix-config-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/cchalc/nix-config
+---
+
+# Nix Config Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: nix-config-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/cchalc/nix-config
+---
+
+# Nix Config Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: nix-config-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/cchalc/nix-config
+---
+
+# Nix Config Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: nix-config-workflow-feature-development
+trigger: "when implementing a new feature"
+confidence: 0.7
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/cchalc/nix-config
+---
+
+# Nix Config Workflow Feature Development
+
+## Action
+
+Follow the feature-development workflow:
+1. Add feature implementation
+2. Add tests for feature
+3. Update documentation
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~4x per month
+- Files: 
+
+---
+id: nix-config-workflow-add-new-package-to-home-manager
+trigger: "when doing add new package to home manager"
+confidence: 0.65
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/cchalc/nix-config
+---
+
+# Nix Config Workflow Add New Package To Home Manager
+
+## Action
+
+Follow the add-new-package-to-home-manager workflow:
+1. Edit modules/home-manager/default.nix to add the new package.
+2. Commit the change with a message indicating the package added.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~3x per month
+- Files: modules/home-manager/default.nix
+
+---
+id: nix-config-workflow-add-or-update-fish-shell-configuration
+trigger: "when doing add or update fish shell configuration"
+confidence: 0.55
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/cchalc/nix-config
+---
+
+# Nix Config Workflow Add Or Update Fish Shell Configuration
+
+## Action
+
+Follow the add-or-update-fish-shell-configuration workflow:
+1. Edit modules/home-manager/fish/config.fish or config/config.fish to update Fish shell settings.
+2. Optionally, update modules/home-manager/fish/default.nix to manage Fish configuration via Nix.
+3. Commit the changes.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~1x per month
+- Files: modules/home-manager/fish/config.fish, modules/home-manager/fish/default.nix, config/config.fish
+
+---
+id: nix-config-workflow-add-new-home-manager-module
+trigger: "when doing add new home manager module"
+confidence: 0.5
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/cchalc/nix-config
+---
+
+# Nix Config Workflow Add New Home Manager Module
+
+## Action
+
+Follow the add-new-home-manager-module workflow:
+1. Create a new directory under modules/home-manager/ for the tool (e.g., tmux, jujutsu).
+2. Add default.nix and any relevant config files (e.g., tmux.conf).
+3. Edit modules/home-manager/default.nix to include the new module.
+4. Commit the changes.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~0x per month
+- Files: modules/home-manager/<tool>/default.nix, modules/home-manager/<tool>/*, modules/home-manager/default.nix
+
+---
+id: nix-config-workflow-remove-or-undo-package-from-home-manager
+trigger: "when doing remove or undo package from home manager"
+confidence: 0.5
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/cchalc/nix-config
+---
+
+# Nix Config Workflow Remove Or Undo Package From Home Manager
+
+## Action
+
+Follow the remove-or-undo-package-from-home-manager workflow:
+1. Edit modules/home-manager/default.nix to remove the package.
+2. Commit the change with a message indicating the package removal.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~0x per month
+- Files: modules/home-manager/default.nix
+
+---
+id: nix-config-workflow-sync-shell-and-nix-config-for-env-vars
+trigger: "when doing sync shell and nix config for env vars"
+confidence: 0.5
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/cchalc/nix-config
+---
+
+# Nix Config Workflow Sync Shell And Nix Config For Env Vars
+
+## Action
+
+Follow the sync-shell-and-nix-config-for-env-vars workflow:
+1. Edit config/config.fish and/or modules/home-manager/fish/config.fish to set environment variables.
+2. Edit modules/home-manager/fish/default.nix if needed to manage via Nix.
+3. Commit the changes.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~0x per month
+- Files: config/config.fish, modules/home-manager/fish/config.fish, modules/home-manager/fish/default.nix
+
+---
+id: nix-config-workflow-fix-or-update-tool-configuration
+trigger: "when doing fix or update tool configuration"
+confidence: 0.5
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/cchalc/nix-config
+---
+
+# Nix Config Workflow Fix Or Update Tool Configuration
+
+## Action
+
+Follow the fix-or-update-tool-configuration workflow:
+1. Edit the tool's config file (e.g., config/starship.toml, modules/home-manager/tmux/tmux.conf).
+2. Edit the related Nix module (e.g., modules/home-manager/default.nix, modules/home-manager/tmux/default.nix).
+3. Commit the changes.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~0x per month
+- Files: config/starship.toml, modules/home-manager/default.nix, modules/home-manager/fish/config.fish
+
+---
+id: nix-config-instinct-file-naming-camelCase
+trigger: "When creating or renaming files in the repository"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct File Naming CamelCase
+
+## Action
+
+Use camelCase for file names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.files
+
+---
+id: nix-config-instinct-function-naming-camelCase
+trigger: "When defining new functions"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct Function Naming CamelCase
+
+## Action
+
+Name functions using camelCase
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.functions
+
+---
+id: nix-config-instinct-class-naming-PascalCase
+trigger: "When defining new classes"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct Class Naming PascalCase
+
+## Action
+
+Name classes using PascalCase
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.classes
+
+---
+id: nix-config-instinct-constant-naming-SCREAMING_SNAKE_CASE
+trigger: "When defining constants"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct Constant Naming SCREAMING_SNAKE_CASE
+
+## Action
+
+Name constants using SCREAMING_SNAKE_CASE
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.constants
+
+---
+id: nix-config-instinct-imports-relative
+trigger: "When importing modules or files"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct Imports Relative
+
+## Action
+
+Use relative import paths
+
+## Evidence
+
+- Pattern in codeStyle.importStyle
+
+---
+id: nix-config-instinct-exports-named
+trigger: "When exporting functions, classes, or variables"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct Exports Named
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Pattern in codeStyle.exportStyle
+
+---
+id: nix-config-instinct-test-location-separate
+trigger: "When adding new tests"
+confidence: 0.7
+domain: testing
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct Test Location Separate
+
+## Action
+
+Place test files in a separate location from source files
+
+## Evidence
+
+- Pattern in architecture.folderStructure.testLocation
+
+---
+id: nix-config-instinct-git-commit-short-freeform
+trigger: "When writing a commit message"
+confidence: 0.8
+domain: git
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct Git Commit Short Freeform
+
+## Action
+
+Write a short, freeform message (average length ~13 characters, e.g., 'add databricks', 'adding python')
+
+## Evidence
+
+- Pattern in commits.examples
+- Pattern in commits.averageLength
+
+---
+id: nix-config-instinct-add-package
+trigger: "When someone wants to install or enable a new package via Home Manager"
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct Add Package
+
+## Action
+
+Edit modules/home-manager/default.nix to add the new package and commit with a message indicating the package added
+
+## Evidence
+
+- Workflow: add-new-package-to-home-manager
+- Commits: 'add databricks', 'adding python'
+
+---
+id: nix-config-instinct-update-fish-config
+trigger: "When someone wants to change Fish shell behavior, add functions, or update environment variables"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct Update Fish Config
+
+## Action
+
+Edit modules/home-manager/fish/config.fish or config/config.fish (and optionally modules/home-manager/fish/default.nix), then commit the changes
+
+## Evidence
+
+- Workflow: add-or-update-fish-shell-configuration
+- Commits: 'fish function'
+
+---
+id: nix-config-instinct-add-module
+trigger: "When someone wants to manage a new tool or configuration via a dedicated Home Manager module"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct Add Module
+
+## Action
+
+Create a new directory under modules/home-manager/ for the tool, add default.nix and relevant configs, edit modules/home-manager/default.nix to include the module, and commit
+
+## Evidence
+
+- Workflow: add-new-home-manager-module
+
+---
+id: nix-config-instinct-remove-package
+trigger: "When someone wants to uninstall or disable a package from the Home Manager setup"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct Remove Package
+
+## Action
+
+Edit modules/home-manager/default.nix to remove the package and commit with a message indicating the removal
+
+## Evidence
+
+- Workflow: remove-or-undo-package-from-home-manager
+- Commits: 'remove databricks'
+
+---
+id: nix-config-instinct-sync-env-vars
+trigger: "When someone wants to ensure environment variables are set both in shell config and Nix-managed files"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct Sync Env Vars
+
+## Action
+
+Edit config/config.fish and/or modules/home-manager/fish/config.fish to set environment variables, edit modules/home-manager/fish/default.nix if needed, and commit
+
+## Evidence
+
+- Workflow: sync-shell-and-nix-config-for-env-vars
+
+---
+id: nix-config-instinct-fix-tool-config
+trigger: "When someone wants to fix, tweak, or update the configuration of a tool managed by both Nix and a config file"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: cchalc/nix-config
+---
+
+# Nix Config Instinct Fix Tool Config
+
+## Action
+
+Edit the tool's config file and the related Nix module, then commit the changes
+
+## Evidence
+
+- Workflow: fix-or-update-tool-configuration
+
