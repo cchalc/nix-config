@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   # Sketchybar status bar + JankyBorders window outlines, driven by AeroSpace
   # (see modules/home-manager/aerospace). Config lives in config/sketchybar/,
   # symlinked to ~/.config/sketchybar via the top-level home.file.".config".
@@ -31,6 +31,13 @@
       ProgramArguments = [ "${pkgs.sketchybar}/bin/sketchybar" ];
       RunAtLoad = true;
       KeepAlive = true;
+      # launchd starts with a bare PATH, but sketchybarrc and the item scripts
+      # call `sketchybar` and `aerospace` as unqualified commands. Without this
+      # the bar comes up EMPTY at login ("command not found" in the err log).
+      # Point PATH at the nix profile (both binaries live there) + system dirs.
+      EnvironmentVariables = {
+        PATH = "${config.home.homeDirectory}/.nix-profile/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+      };
       StandardOutPath = "/tmp/sketchybar.out.log";
       StandardErrorPath = "/tmp/sketchybar.err.log";
     };
