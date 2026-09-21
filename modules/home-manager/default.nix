@@ -7,10 +7,10 @@ let
   # prebuilt darwin_arm64 release instead so no Go build is needed.
   databricks-cli = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "databricks-cli";
-    version = "1.9.0";
+    version = "1.17.0";
     src = pkgs.fetchurl {
       url = "https://github.com/databricks/cli/releases/download/v${version}/databricks_cli_${version}_darwin_arm64.tar.gz";
-      hash = "sha256-yjD6sh2JG+kopZapTCBfXYDpY9GTJyiR6c9YlLsWa+k=";
+      hash = "sha256-9Fkm3YiEBcDf+lV7539h+xKa+vh3gkAe16WQ9uG/hJ0=";
     };
     sourceRoot = ".";
     installPhase = ''
