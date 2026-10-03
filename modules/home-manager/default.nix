@@ -25,6 +25,37 @@ let
       mainProgram = "databricks";
     };
   };
+
+  # pi coding agent (earendil-works/pi). The repo's own flake builds from
+  # source via importNpmLock, which fetches ~366 tarballs from
+  # registry.npmjs.org — unreachable through the corp firewall (same as
+  # databricks-cli/hunk). Package the official prebuilt release instead.
+  pi-coding-agent = pkgs.stdenvNoCC.mkDerivation rec {
+    pname = "pi";
+    version = "1.0.0";
+    src = pkgs.fetchurl {
+      url = "https://github.com/earendil-works/pi/releases/download/v${version}/pi-darwin-arm64.tar.gz";
+      hash = "sha256-lykefS6y19lasfZ9Jt55AjAiAbyHhsEyu7yeU/qFJsw=";
+    };
+    sourceRoot = "pi";
+    # Compiled single-file binary with an appended payload — stripping breaks it.
+    dontStrip = true;
+    # The binary loads theme/, native/, *.wasm etc. from beside itself, so keep
+    # the release tree together and symlink the binary into bin/.
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/lib/pi $out/bin
+      cp -R . $out/lib/pi/
+      ln -s $out/lib/pi/pi $out/bin/pi
+      runHook postInstall
+    '';
+    meta = {
+      description = "Pi coding agent (official prebuilt release binary)";
+      homepage = "https://github.com/earendil-works/pi";
+      platforms = [ "aarch64-darwin" ];
+      mainProgram = "pi";
+    };
+  };
 in
 {
   imports = [
@@ -94,6 +125,7 @@ in
       opencode
       gemini-cli
       cursor-cli # Cursor's headless coding agent — provides the `cursor-agent` binary
+      pi-coding-agent # pi 1.0 — prebuilt release, see let block
 
       # training
       exercism
