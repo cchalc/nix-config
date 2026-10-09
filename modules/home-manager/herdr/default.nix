@@ -6,11 +6,11 @@ let
   # then `nix-prefetch-url <url>` + `nix hash to-sri --type sha256 <hash>`.
   herdr = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "herdr";
-    version = "0.7.5";
+    version = "0.9.3";
 
     src = pkgs.fetchurl {
-      url = "https://github.com/ogulcancelik/herdr/releases/download/v${version}/herdr-macos-aarch64";
-      hash = "sha256-NzUFRrABJVWUO5Lq+WJmXeTiZDlbrrRCJ7gBXo/1sNY=";
+      url = "https://github.com/herdrdev/herdr/releases/download/v${version}/herdr-macos-aarch64";
+      hash = "sha256-UXOj4K5C1dGrfr+l1eYyn3w9I/jho2d8fOMjHaKIQVc=";
     };
 
     dontUnpack = true;

@@ -103,7 +103,10 @@ edits with `herdr config check`; reload a running server with
 
 Version bumps: edit `version` in `modules/home-manager/herdr/default.nix`, then
 `nix-prefetch-url <url>` and `nix hash to-sri --type sha256 <hash>` for the new
-`hash`.
+`hash`. After switching, run `herdr integration status` and re-run
+`herdr integration install <agent>` for anything reported `outdated` — the hook
+files are versioned by herdr and don't update themselves. Stop a running server
+(`herdr server stop`, ends its panes) so the next launch uses the new binary.
 
 ### Window management (AeroSpace + sketchybar)
 
