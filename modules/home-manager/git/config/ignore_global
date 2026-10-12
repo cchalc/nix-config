@@ -51,6 +51,11 @@ __pycache__/
 #############
 [._]*.swp
 
+# Editors #
+###########
+.vscode/
+.idea/
+
 # Modules #
 ###########
 .cargo/
