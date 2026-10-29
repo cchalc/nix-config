@@ -90,6 +90,21 @@
           end
         '';
       };
+      # `isaac omni` pinned to one Omnigent server, e.g. `omni-dev claude`. Omnigent keeps
+      # one host daemon per server, so sessions on different servers run side by side.
+      # First use of a server: browser login; on a 412 run `omni-<name> setup` once.
+      omni-gtm = {
+        description = "isaac omni on the GTM server (gtm-ai-agent)";
+        body = ''
+          ISAAC_OMNI_SERVER=https://gtm-ai-agent.cloud.databricks.com/api/2.0/omnigent isaac omni $argv
+        '';
+      };
+      omni-dev = {
+        description = "isaac omni on the ai-devtools server (isaac.databricks.com/?o=1965859176160743)";
+        body = ''
+          ISAAC_OMNI_SERVER=https://dbc-a5d4177a-49dc.cloud.databricks.com/api/2.0/omnigent isaac omni $argv
+        '';
+      };
     };
     shellAliases = {
       ga = "git add";
