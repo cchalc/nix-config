@@ -105,6 +105,15 @@
           ISAAC_OMNI_SERVER=https://dbc-a5d4177a-49dc.cloud.databricks.com/api/2.0/omnigent isaac omni $argv
         '';
       };
+      # Run an ai-kitchen-dbx `just` recipe from any directory, e.g. `kitchen link-agents`,
+      # `kitchen sync-public`. Always uses the main checkout's justfile, so recipes act on main.
+      kitchen = {
+        description = "Run an ai-kitchen-dbx just recipe from anywhere";
+        body = ''
+          set -l repo $HOME/Projects/Databricks/ai-kitchen-dbx
+          just --justfile $repo/justfile --working-directory $repo $argv
+        '';
+      };
     };
     shellAliases = {
       ga = "git add";
