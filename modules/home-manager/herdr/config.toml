@@ -1,4 +1,6 @@
-# herdr configuration — managed by nix-config (symlinked from repo ./config).
+# herdr configuration — managed by nix-config: modules/home-manager/herdr/config.toml,
+# linked writable (out-of-store) to ~/.config/herdr/config.toml, so edits herdr makes
+# from its UI (theme, sound, toasts) land here in git.
 # Print the full annotated default with `herdr --default-config`.
 # Reload a running server after edits with `herdr server reload-config`.
 #
