@@ -96,6 +96,7 @@ in
       duckdb
       bun
       pnpm
+      prisma # global CLI (studio, migrate, generate); projects still pin their own @prisma/client
 
       # elixir
       beamPackages.elixir_1_18 # was elixir_1_15; removed in nixpkgs bump (erlang_26 EOL)
