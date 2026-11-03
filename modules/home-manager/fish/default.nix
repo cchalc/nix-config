@@ -108,14 +108,21 @@
       # Plain omni (not isaac) on the FEVM talk-demo workspace, with its own state dir so
       # isaac's harness overrides in ~/.omnigent don't apply and model calls hit FEVM's gateway.
       # First use: `omni-fevm setup`, then `omni-fevm login <ws>`.
+      # Hermetic: drops inherited ANTHROPIC_*/CLAUDE_CODE_*/OMNIGENT_*/UG_* vars (e.g. when run
+      # from inside an agent session) so they can't reroute model calls to another gateway.
       omni-fevm = {
         description = "plain omni on the FEVM demo workspace (fevm-cjc, ~/.omnigent-fevm)";
         body = ''
-          set -lx OMNIGENT_CONFIG_HOME $HOME/.omnigent-fevm
-          set -lx OMNIGENT_DATA_DIR $HOME/.omnigent-fevm
-          set -lx OMNIGENT_SERVER https://fevm-serverless-stable-sve6dz.cloud.databricks.com/api/2.0/omnigent
-          set -lx DATABRICKS_CONFIG_PROFILE fevm-cjc
-          omni $argv
+          set -l scrub
+          for v in (set -xn | string match -r '^(?:ANTHROPIC_|CLAUDE_CODE_|OMNIGENT_|UG_).*$|^(?:CLAUDECODE|DATABRICKS_WORKSPACE_ID)$')
+            set -a scrub -u $v
+          end
+          env $scrub \
+            OMNIGENT_CONFIG_HOME=$HOME/.omnigent-fevm \
+            OMNIGENT_DATA_DIR=$HOME/.omnigent-fevm \
+            OMNIGENT_SERVER=https://fevm-serverless-stable-sve6dz.cloud.databricks.com/api/2.0/omnigent \
+            DATABRICKS_CONFIG_PROFILE=fevm-cjc \
+            omni $argv
         '';
       };
       # Run an ai-kitchen-dbx `just` recipe from any directory, e.g. `kitchen link-agents`,
