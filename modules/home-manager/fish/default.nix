@@ -105,6 +105,19 @@
           ISAAC_OMNI_SERVER=https://dbc-a5d4177a-49dc.cloud.databricks.com/api/2.0/omnigent isaac omni $argv
         '';
       };
+      # Plain omni (not isaac) on the FEVM talk-demo workspace, with its own state dir so
+      # isaac's harness overrides in ~/.omnigent don't apply and model calls hit FEVM's gateway.
+      # First use: `omni-fevm setup`, then `omni-fevm login <ws>`.
+      omni-fevm = {
+        description = "plain omni on the FEVM demo workspace (fevm-cjc, ~/.omnigent-fevm)";
+        body = ''
+          set -lx OMNIGENT_CONFIG_HOME $HOME/.omnigent-fevm
+          set -lx OMNIGENT_DATA_DIR $HOME/.omnigent-fevm
+          set -lx OMNIGENT_SERVER https://fevm-serverless-stable-sve6dz.cloud.databricks.com/api/2.0/omnigent
+          set -lx DATABRICKS_CONFIG_PROFILE fevm-cjc
+          omni $argv
+        '';
+      };
       # Run an ai-kitchen-dbx `just` recipe from any directory, e.g. `kitchen link-agents`,
       # `kitchen sync-public`. Always uses the main checkout's justfile, so recipes act on main.
       kitchen = {
