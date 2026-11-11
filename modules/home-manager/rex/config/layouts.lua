@@ -20,17 +20,30 @@ local function fish_quote(s)
   return "'" .. s:gsub("\\", "\\\\"):gsub("'", "\\'") .. "'"
 end
 
--- Types argv into the user's fish. Block creation looks executables up on a
--- narrow PATH (no nix), so a direct `command = argv` cannot find home-manager.
--- The shell stays open after the command, so output remains readable; with
--- keep=false the shell exits when the command does.
+-- Single-quote one argument for sh ('...' has no escapes; close, \', reopen).
+local function sh_quote(s)
+  return "'" .. s:gsub("'", "'\\''") .. "'"
+end
+
+-- Block creation looks argv[0] up on a narrow PATH (no nix), so a bare
+-- `command = argv` cannot find home-manager. Two routes around it:
+-- keep (default): type argv into the user's fish, which stays open after the
+--   command so output stays readable and the pane is still a usable shell.
+-- keep=false: run under /bin/sh -c, which inherits the full user PATH; the
+--   pane exits with the command and terminal.child_exited carries its code
+--   (typed `; exit` into fish never fires child_exited).
 function M.cmd(argv, opts)
   opts = opts or {}
+  if opts.keep == false then
+    local parts = {}
+    for i, a in ipairs(argv) do parts[i] = sh_quote(a) end
+    local o = { command = { "/bin/sh", "-c", table.concat(parts, " ") } }
+    if opts.cwd then o.cwd = opts.cwd end
+    return rex.layout.block{ flavor = M.SHELL, options = o }
+  end
   local parts = {}
   for i, a in ipairs(argv) do parts[i] = fish_quote(a) end
-  local line = table.concat(parts, " ")
-  if opts.keep == false then line = line .. "; exit" end
-  return shell{ cwd = opts.cwd, input = line .. "\n" }
+  return shell{ cwd = opts.cwd, input = table.concat(parts, " ") .. "\n" }
 end
 
 function M.h(ratio, a, b) return rex.layout.horizontal(ratio, a, b) end
