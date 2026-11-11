@@ -66,6 +66,7 @@ in
     ./herdr
     ./nvim
     ./jujutsu
+    ./rex
     ./sketchybar
     ./television
     ./tmux

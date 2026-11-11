@@ -1,0 +1,2 @@
+# Runtime files Rex writes into ~/.config/rex (this dir is linked there).
+terminfo-hosts
