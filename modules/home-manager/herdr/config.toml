@@ -1,3 +1,4 @@
+onboarding = false
 # herdr configuration — managed by nix-config: modules/home-manager/herdr/config.toml,
 # linked writable (out-of-store) to ~/.config/herdr/config.toml, so edits herdr makes
 # from its UI (theme, sound, toasts) land here in git.
@@ -59,4 +60,7 @@ delay_seconds = 1
 
 [ui.sound]
 # Play a sound on background agent state changes too.
-enabled = true
+enabled = false
+
+[ui]
+status_indicators = "symbols"
