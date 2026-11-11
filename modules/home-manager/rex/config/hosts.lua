@@ -1,1 +1,13 @@
--- Remote Rex servers (rex.host{}). Config-file only. Loaded first by init.lua.
+-- Remote Rex servers (rex.host{}). Config-file only: rex.host has no effect in
+-- scripts, so it lives here rather than in a script. Loaded first by init.lua.
+--
+-- No hosts are configured. Uncomment and fill in to add one; `rex hosts` lists
+-- what the server knows, and `rex -S <label>` targets a host.
+--
+-- rex.host{
+--   label     = "build",                              -- required: name shown in rex hosts
+--   endpoints = { "build.internal:7421", "10.0.0.12:7421" }, -- tried in order
+--   -- endpoint = "build.internal:7421",             -- single address, instead of endpoints
+--   id        = "host-build",                         -- stable across renames
+--   icon      = "server",                             -- optional, for clients to show
+-- }
