@@ -1,0 +1,1 @@
+-- Custom palette actions. Loaded by init.lua.
