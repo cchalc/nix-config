@@ -30,7 +30,8 @@ in {
   '';
 
   # Validate the config and push it to a running server. Never installs
-  # anything and never fails the switch.
+  # anything and never fails the switch. The terminfo and skill checks only
+  # print a hint; running their setup commands is left to the user.
   home.activation.rexConfig = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
     rex="${rexBin}"
     if [ -x "$rex" ]; then
@@ -40,6 +41,42 @@ in {
         "$rex" config reload --autostart=false >/dev/null 2>&1 \
           || echo "rex: config reload failed — run: rex config reload"
       fi
+
+      if "$rex" terminfo status --autostart=false 2>/dev/null | grep -q '^Not ready'; then
+        echo "rex: terminfo not installed — run: rex terminfo setup"
+      fi
+
+      if "$rex" skill status --json --autostart=false 2>/dev/null \
+        | grep -Eq '"state": *"(missing|outdated)"'; then
+        echo "rex: agent skill or hooks missing or outdated — run: rex skill setup"
+      fi
     fi
   '';
+
+  # Fish: completions and short abbreviations for the rex CLI. Completions are
+  # cached under ~/.cache/rex and regenerated only when the rex binary is newer,
+  # so shell start does not run `rex completion` every time.
+  programs.fish = {
+    interactiveShellInit = lib.mkAfter ''
+      # Rex completions (cached; see modules/home-manager/rex/default.nix)
+      if command -q rex
+          set -l __rex_bin (command -s rex)
+          set -l __rex_cache "$HOME/.cache/rex/completion.fish"
+          if not test -s "$__rex_cache"; or test "$__rex_bin" -nt "$__rex_cache"
+              mkdir -p "$HOME/.cache/rex"
+              rex completion fish --autostart=false >"$__rex_cache.tmp" 2>/dev/null; and mv -f "$__rex_cache.tmp" "$__rex_cache"
+          end
+          test -s "$__rex_cache"; and source "$__rex_cache"
+      end
+    '';
+
+    shellAbbrs = {
+      rx = "rex";
+      rxc = "rex config check";
+      rxr = "rex config reload";
+      rxk = "rex keymap";
+      rxd = "rex do";
+      rxa = "rex actions";
+    };
+  };
 }
