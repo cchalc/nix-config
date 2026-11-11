@@ -81,32 +81,39 @@ Binary lands at `~/.cache/.bun/bin/hunk` (already on `PATH` via `home.nix`).
 
 ### Herdr (agent workspace manager)
 
-Nix pins the herdr binary (`modules/home-manager/herdr`) and its config
-(`config/herdr/config.toml`, symlinked to `~/.config/herdr/config.toml`). The
-config ports the tmux ergonomics — `ctrl-s` prefix, `hjkl` pane nav, Catppuccin —
-so it's ready on switch. Launch it in any project with `herdr`.
+Everything herdr lives in `modules/home-manager/herdr/`: `default.nix` pins the
+binary, and `config.toml` is linked **writable** (out-of-store) to
+`~/.config/herdr/config.toml` — herdr writes it back from its UI (theme, sound,
+toasts) and live-reloads it, so those edits show up in `git diff` here. The rest
+of `~/.config/herdr/` (sessions, sockets, logs) is herdr's runtime state; don't
+manage it. The config ports the tmux ergonomics — `ctrl-s` prefix, `hjkl` pane
+nav, Catppuccin — so it's ready on switch. Launch it in any project with `herdr`.
 
 Agent integrations write lifecycle hooks into each agent's own config, so they
 can't be managed declaratively. Run these once (re-run on a new machine):
 
 ```fish
 herdr integration install claude
+herdr integration install codex
+herdr integration install copilot
 herdr integration install cursor
+herdr integration install opencode
 herdr integration install pi
-herdr integration status   # confirm all three report installed
+herdr integration status   # confirm each reports current
 ```
 
-Agents without an integration (e.g. omnigent, codex) still work — herdr detects
-them via screen manifests, just without authoritative state. Validate config
-edits with `herdr config check`; reload a running server with
+Agents without an integration (e.g. omnigent) still work — herdr detects them
+via screen manifests, just without authoritative state. Validate config edits
+with `herdr config check`; reload a running server with
 `herdr server reload-config`.
 
 Version bumps: edit `version` in `modules/home-manager/herdr/default.nix`, then
 `nix-prefetch-url <url>` and `nix hash to-sri --type sha256 <hash>` for the new
-`hash`. After switching, run `herdr integration status` and re-run
-`herdr integration install <agent>` for anything reported `outdated` — the hook
-files are versioned by herdr and don't update themselves. Stop a running server
-(`herdr server stop`, ends its panes) so the next launch uses the new binary.
+`hash`. On switch, the `herdrIntegrations` activation step prints a
+`herdr integration install <agent>` line for anything `outdated` (it never
+installs — the hook files are versioned by herdr and don't update themselves).
+Stop a running server (`herdr server stop`, ends its panes; agents resume via
+`resume_agents_on_restore`) so the next launch uses the new binary.
 
 ### Window management (AeroSpace + sketchybar)
 

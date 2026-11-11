@@ -90,6 +90,50 @@
           end
         '';
       };
+      # `isaac omni` pinned to one Omnigent server, e.g. `omni-dev claude`. Omnigent keeps
+      # one host daemon per server, so sessions on different servers run side by side.
+      # First use of a server: browser login; on a 412 run `omni-<name> setup` once.
+      omni-gtm = {
+        description = "isaac omni on the GTM server (gtm-ai-agent)";
+        body = ''
+          ISAAC_OMNI_SERVER=https://gtm-ai-agent.cloud.databricks.com/api/2.0/omnigent isaac omni $argv
+        '';
+      };
+      omni-dev = {
+        description = "isaac omni on the ai-devtools server (isaac.databricks.com/?o=1965859176160743)";
+        body = ''
+          ISAAC_OMNI_SERVER=https://dbc-a5d4177a-49dc.cloud.databricks.com/api/2.0/omnigent isaac omni $argv
+        '';
+      };
+      # Plain omni (not isaac) on the FEVM talk-demo workspace, with its own state dir so
+      # isaac's harness overrides in ~/.omnigent don't apply and model calls hit FEVM's gateway.
+      # First use: `omni-fevm setup`, then `omni-fevm login <ws>`.
+      # Hermetic: drops inherited ANTHROPIC_*/CLAUDE_CODE_*/OMNIGENT_*/UG_* vars (e.g. when run
+      # from inside an agent session) so they can't reroute model calls to another gateway.
+      omni-fevm = {
+        description = "plain omni on the FEVM demo workspace (fevm-cjc, ~/.omnigent-fevm)";
+        body = ''
+          set -l scrub
+          for v in (set -xn | string match -r '^(?:ANTHROPIC_|CLAUDE_CODE_|OMNIGENT_|UG_).*$|^(?:CLAUDECODE|DATABRICKS_WORKSPACE_ID)$')
+            set -a scrub -u $v
+          end
+          env $scrub \
+            OMNIGENT_CONFIG_HOME=$HOME/.omnigent-fevm \
+            OMNIGENT_DATA_DIR=$HOME/.omnigent-fevm \
+            OMNIGENT_SERVER=https://fevm-serverless-stable-sve6dz.cloud.databricks.com/api/2.0/omnigent \
+            DATABRICKS_CONFIG_PROFILE=fevm-cjc \
+            omni $argv
+        '';
+      };
+      # Run an ai-kitchen-dbx `just` recipe from any directory, e.g. `kitchen link-agents`,
+      # `kitchen sync-public`. Always uses the main checkout's justfile, so recipes act on main.
+      kitchen = {
+        description = "Run an ai-kitchen-dbx just recipe from anywhere";
+        body = ''
+          set -l repo $HOME/Projects/Databricks/ai-kitchen-dbx
+          just --justfile $repo/justfile --working-directory $repo $argv
+        '';
+      };
     };
     shellAliases = {
       ga = "git add";

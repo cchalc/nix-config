@@ -1,4 +1,5 @@
 [user]
 	email = christopher.chalcraft@databricks.com
+	signingkey = ~/.ssh/id_ed25519_work.pub
 [push]
   default = upstream

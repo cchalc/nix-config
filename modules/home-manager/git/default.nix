@@ -1,6 +1,7 @@
-{pkgs, ...}: {
+{pkgs, inputs, ...}: {
   home.packages = with pkgs; [
-    gh
+    # pinned newer than nixpkgs; see nixpkgs-gh in flake.nix
+    inputs.nixpkgs-gh.legacyPackages.${pkgs.stdenv.hostPlatform.system}.gh
     git
     git-lfs
   ];
