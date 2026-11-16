@@ -56,6 +56,32 @@ let
       mainProgram = "pi";
     };
   };
+
+  # snouty — the Antithesis CLI, required by the antithesis Claude Code plugin
+  # (antithesishq/antithesis-plugin needs >= 0.10.0; it also runs `snouty mcp`).
+  # nixpkgs ships 0.5.0, so package the official prebuilt darwin release instead.
+  # `snouty update` can't write to the store — bump `version` + hash here (hash
+  # from the release's .tar.xz.sha256, via `nix hash convert --to sri`).
+  snouty = pkgs.stdenvNoCC.mkDerivation rec {
+    pname = "snouty";
+    version = "0.10.0";
+    src = pkgs.fetchurl {
+      url = "https://github.com/antithesishq/snouty/releases/download/v${version}/snouty-aarch64-apple-darwin.tar.xz";
+      hash = "sha256-gsk8Vs6aKgCIyFoLj7EQJac12RjOfkZ4tKON17dgEFA=";
+    };
+    sourceRoot = "snouty-aarch64-apple-darwin";
+    installPhase = ''
+      runHook preInstall
+      install -Dm755 snouty $out/bin/snouty
+      runHook postInstall
+    '';
+    meta = {
+      description = "Antithesis CLI (official prebuilt release binary)";
+      homepage = "https://github.com/antithesishq/snouty";
+      platforms = [ "aarch64-darwin" ];
+      mainProgram = "snouty";
+    };
+  };
 in
 {
   imports = [
@@ -105,7 +131,7 @@ in
 
       # other
       fd
-      jq
+      jq # also required by the antithesis plugin (see # antithesis below)
       yq
       raycast
       ripgrep
@@ -128,6 +154,15 @@ in
       gemini-cli
       cursor-cli # Cursor's headless coding agent — provides the `cursor-agent` binary
       pi-coding-agent # pi 1.0 — prebuilt release, see let block
+
+      # antithesis — prerequisites for the antithesis Claude Code plugin
+      # (antithesishq/antithesis-plugin): snouty, a container engine, Docker
+      # Compose v2 and jq (listed under "other"). Podman instead of Docker (no
+      # daemon). First use: `podman machine init && podman machine start`, then
+      # `snouty login` and `snouty doctor`.
+      snouty # >= 0.10.0 prebuilt release, see let block
+      podman
+      docker-compose # Compose v2 CLI only (no Docker daemon); snouty drives it against podman's socket
 
       # training
       exercism
