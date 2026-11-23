@@ -32,10 +32,10 @@ let
   # databricks-cli/hunk). Package the official prebuilt release instead.
   pi-coding-agent = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "pi";
-    version = "1.0.0";
+    version = "1.6.0";
     src = pkgs.fetchurl {
       url = "https://github.com/earendil-works/pi/releases/download/v${version}/pi-darwin-arm64.tar.gz";
-      hash = "sha256-lykefS6y19lasfZ9Jt55AjAiAbyHhsEyu7yeU/qFJsw=";
+      hash = "sha256-ZCkoe3rpjXJuxXeBXRT9aA58WH6J7MUVO0oUXcStujM=";
     };
     sourceRoot = "pi";
     # Compiled single-file binary with an appended payload — stripping breaks it.
