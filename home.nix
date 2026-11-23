@@ -36,6 +36,20 @@
       MB_DB_USER = "metabase";
       MB_DB_PASS = "metabase"; # local-only dev creds, fine in plaintext
       PGDATA = "$HOME/.local/share/postgres"; # default data dir for pg_ctl/initdb
+
+      # antithesis (snouty) — deliberately left unset. This repo is public, so the
+      # tenant, registry and API key never go here (and nothing secret belongs in
+      # the world-readable nix store anyway). Values live in the internal
+      # "Antithesis" Lakebase docs page and Keeper (Brickstore > Antithesis).
+      # Set them up once with:
+      #   snouty login --tenant <tenant> --repository <registry>   # prompts for the API key
+      #   podman login -u _json_key --password-stdin https://<registry-host> < <gar-key.json>
+      #   snouty doctor
+      # snouty then reads ~/.config/snouty/settings.toml. Environment variables
+      # override it (keep commented — an empty value may be read as "set"):
+      # ANTITHESIS_TENANT = "";
+      # ANTITHESIS_REPOSITORY = "";
+      # ANTITHESIS_API_KEY = "";
     };
 
     activation.createUserBins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
