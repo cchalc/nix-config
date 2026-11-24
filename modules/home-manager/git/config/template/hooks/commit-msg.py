@@ -43,7 +43,7 @@ while True:
             bad_commit("First commit message line (header) "
                     "is exceeding the 50 chars limit", line)
 
-        m = re.search('^(.*)\((.*)\): (.*)$', line)
+        m = re.search(r'^(.*)\((.*)\): (.*)$', line)
 
         if not m or len(m.groups()) != 3:
             bad_commit("First commit message line (header) does not "
@@ -90,8 +90,18 @@ while True:
 
     # We catch that an error has happened and react accordingly
     except SyntaxError as err:
-        if input("Do you want to edit it? (Your commit will "
-                "be rejected otherwise) [y/N] ").lower() == 'y':
+        if not sys.stdin.isatty():
+            sys.stderr.write("No TTY available: fix the commit message and retry.\n")
+            sys.exit(1)
+
+        try:
+            edit_commit = input("Do you want to edit it? (Your commit will "
+                                "be rejected otherwise) [y/N] ")
+        except EOFError:
+            sys.stderr.write("No TTY available: fix the commit message and retry.\n")
+            sys.exit(1)
+
+        if edit_commit.lower() == 'y':
             if not is_piped:
                 commit.close()
                 commit = open(sys.argv[1], 'a')
