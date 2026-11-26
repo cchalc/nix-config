@@ -7,8 +7,8 @@
 --   rex do ~/.config/rex/scripts/test-zoom.lua cmd="make test" close=true   # close pane on success
 --   rex do ~/.config/rex/scripts/test-zoom.lua --args '{"argv":["make","test"]}'
 --
--- cmd is typed into fish as written; argv is quoted per word. The pane stays
--- open after the command exits so its output can be read. timeout (seconds,
+-- cmd runs through /bin/sh -c as written; argv is quoted per word. The pane
+-- stays open after the command exits so its output can be read. timeout (seconds,
 -- default 600) bounds the wait for exit.
 
 local HOME = os.getenv("HOME") or "."

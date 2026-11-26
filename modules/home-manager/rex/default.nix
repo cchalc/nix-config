@@ -2,7 +2,7 @@
 let
   # Rex (superlogical) is a beta terminal installed by hand from the beta
   # program, so there is no package here — only its config. Known-good with
-  # rex 0.1.0-preview.14 (`rex version`). The CLI ships inside the server
+  # rex 0.1.0-preview.21 (`rex version`). The CLI ships inside the server
   # bundle; activation calls it by full path because PATH is minimal there.
   rexBin = "${config.home.homeDirectory}/Library/Application Support/com.superlogical.rex/RexServer/Versions/Current/Rex Server.app/Contents/MacOS/rex";
 
@@ -77,6 +77,8 @@ in {
       rxk = "rex keymap";
       rxd = "rex do";
       rxa = "rex actions";
+      rxwatch = "rex do ~/.config/rex/scripts/agent-watch.lua --all notify=true";
+      rxstatus = "rex do ~/.config/rex/scripts/agent-status.lua --json";
     };
   };
 }

@@ -10,7 +10,7 @@
 -- Leader map (cmd+; then):
 --   r resize mode     m move mode       a agent mode (once)
 --   s scratch         f focus_mode      d dev_layout
---   c agent claude    p agent pi        n nix_switch     b nix_build
+--   c agent claude    x agent codex     p agent pi        w agent team
 --   l rex_reload      e pane.rename     t client.tab.rename
 --   g session.rename  o appearance      = pane.balance
 --   ] session.next    [ session.previous
@@ -24,9 +24,11 @@ rex.bind("cmd+;>a", "client.mode.enter", { name = "agent", once = true })
 -- Custom actions (defined in actions.lua / scripts/).
 rex.bind("cmd+;>s", "scratch") -- scratch terminal
 rex.bind("cmd+;>f", "focus_mode") -- hide chrome, focus the pane
-rex.bind("cmd+;>d", "dev_layout") -- editor + shell + server layout
+rex.bind("cmd+;>d", "dev_layout") -- two-shell development layout
 rex.bind("cmd+;>c", "agent_layout", { agent = "claude" }) -- agent layout, claude
+rex.bind("cmd+;>x", "agent_layout", { agent = "codex" }) -- agent layout, codex
 rex.bind("cmd+;>p", "agent_layout", { agent = "pi" }) -- agent layout, pi
+rex.bind("cmd+;>w", "agent_team") -- idempotent multi-agent workspace
 rex.bind("cmd+;>n", "nix_switch") -- home-manager switch
 rex.bind("cmd+;>b", "nix_build") -- nix build (no activation)
 rex.bind("cmd+;>l", "rex_reload") -- reload this config (l = load)

@@ -3,8 +3,23 @@
 -- belong inside run(); at load time only rex.action{} is called.
 
 local L = require("layouts")
+local Agents = require("agents")
 
 local REPO = os.getenv("HOME") .. "/Config/nix-config"
+local TERMINAL = "com.superlogical.terminal"
+
+local shells = {
+  bash = true,
+  dash = true,
+  fish = true,
+  ksh = true,
+  mksh = true,
+  nu = true,
+  nushell = true,
+  sh = true,
+  yash = true,
+  zsh = true,
+}
 
 local function basename(path)
   return (path:gsub("/+$", ""):match("([^/]+)$")) or path
@@ -37,6 +52,49 @@ local function new_window(opts)
   return { window_id = w.window_id, label = opts.window_label, block_ids = w.block_ids }
 end
 
+local function find_window(label)
+  local view = rex.session.view{}
+  if view == nil then return nil end
+  for _, window in ipairs(view.windows or {}) do
+    if window.label == label then return window end
+  end
+  return nil
+end
+
+local function agent_blocks()
+  local listed = rex.session.list_blocks{}
+  local items = {}
+  for _, block in ipairs((listed and listed.blocks) or {}) do
+    local label = (block.label or ""):gsub("^● ", "")
+    if label == "operator" or label:match("^agent:") then
+      items[#items + 1] = {
+        id = block.block_id,
+        title = label,
+        subtitle = block.block_id,
+        icon = label == "operator" and "terminal" or "person",
+      }
+    end
+  end
+  return items
+end
+
+-- A team label outlives the agent process. Refuse to type a prompt when the
+-- pane has fallen back to a shell, where natural language could be executed as
+-- a command. A non-shell foreground process is still only a point-in-time
+-- check, so the action performs it immediately before every write.
+local function agent_is_running(block_id)
+  local process, err = rex.block.call(TERMINAL, "process", { block_id = block_id })
+  if process == nil then return false, tostring(err or "process unavailable") end
+  local foreground = process.foreground
+  if foreground == nil or foreground.name == nil then
+    return false, "no foreground program"
+  end
+  if shells[foreground.name] then
+    return false, "foreground program is " .. foreground.name
+  end
+  return true
+end
+
 rex.action{
   name        = "scratch",
   title       = "Scratch Shell",
@@ -53,6 +111,143 @@ rex.action{
     }
     if layer == nil then error(err or "new_layer failed", 0) end
     return { layer_id = layer.layer_id, cwd = cwd }
+  end,
+}
+
+rex.action{
+  name        = "agent_team",
+  title       = "Agent Team…",
+  description = "Focus or create an operator window with one to three agent panes.",
+  category    = "Agents",
+  keywords    = "agent team fleet pair orchestrate claude codex pi",
+  args        = { cwd = "string?", agents = "string?", name = "string?" },
+  run         = function(ctx, args)
+    local cwd = args.cwd and expand(args.cwd) or L.cwd_of(ctx)
+    local spec = args.agents
+    if spec == nil then
+      local why
+      spec, why = rex.ui.pick{
+        title = "Open agent team",
+        placeholder = "Choose a team",
+        items = Agents.preset_items(),
+      }
+      if spec == nil then
+        if why ~= "cancelled" then rex.log("warn", "agent_team: " .. tostring(why)) end
+        return
+      end
+    end
+
+    local names, perr = Agents.parse(spec)
+    if names == nil then error(perr, 0) end
+    local label = args.name or ("agents:" .. basename(cwd))
+    local existing = find_window(label)
+    if existing ~= nil then
+      local _, ferr = rex.session.focus_window{ window_id = existing.window_id }
+      if ferr ~= nil then error(ferr, 0) end
+      return { window_id = existing.window_id, created = false, cwd = cwd }
+    end
+
+    local layout, labels = L.team{ cwd = cwd, agents = names }
+    local window = new_window{
+      layout = layout,
+      window_label = label,
+      focus = true,
+    }
+    for i, block_id in ipairs(window.block_ids or {}) do
+      if labels[i] ~= nil then
+        local _, lerr = rex.session.set_block_label{
+          block_id = block_id,
+          label = labels[i],
+        }
+        if lerr ~= nil then rex.log("warn", "agent_team: label: " .. tostring(lerr)) end
+      end
+    end
+    window.created = true
+    window.cwd = cwd
+    window.agents = names
+    return window
+  end,
+}
+
+rex.action{
+  name        = "agent_focus",
+  title       = "Focus Agent Pane…",
+  description = "Choose an operator or agent pane by its stable label.",
+  category    = "Agents",
+  keywords    = "agent focus switch pane attention",
+  run         = function()
+    local items = agent_blocks()
+    if #items == 0 then error("no labelled agent panes in this session", 0) end
+    local block_id, why = rex.ui.pick{
+      title = "Focus agent pane",
+      placeholder = "Filter panes",
+      items = items,
+    }
+    if block_id == nil then
+      if why ~= "cancelled" then rex.log("warn", "agent_focus: " .. tostring(why)) end
+      return
+    end
+    local _, err = rex.session.focus_block{ block_id = block_id }
+    if err ~= nil then error(err, 0) end
+    return { block_id = block_id }
+  end,
+}
+
+rex.action{
+  name        = "agent_broadcast",
+  title       = "Broadcast to Agents…",
+  description = "Type one explicit prompt into selected labelled agent panes.",
+  category    = "Agents",
+  keywords    = "agent prompt broadcast send team",
+  run         = function()
+    local items = agent_blocks()
+    local only_agents = {}
+    for _, item in ipairs(items) do
+      if item.title:match("^agent:") then only_agents[#only_agents + 1] = item end
+    end
+    if #only_agents == 0 then error("no labelled agent panes in this session", 0) end
+
+    local targets, why = rex.ui.pick{
+      title = "Choose agents",
+      placeholder = "Filter agents",
+      confirm = "Choose",
+      multiple = true,
+      items = only_agents,
+    }
+    if targets == nil then
+      if why ~= "cancelled" then rex.log("warn", "agent_broadcast: " .. tostring(why)) end
+      return
+    end
+    if #targets == 0 then return { sent = 0 } end
+
+    local prompt, pwhy = rex.ui.input{
+      title = "Prompt selected agents",
+      placeholder = "Be explicit about scope and expected output",
+      confirm = "Send",
+    }
+    if prompt == nil then
+      if pwhy ~= "cancelled" then rex.log("warn", "agent_broadcast: " .. tostring(pwhy)) end
+      return
+    end
+
+    local sent = 0
+    for _, block_id in ipairs(targets) do
+      local running, reason = agent_is_running(block_id)
+      if not running then
+        rex.log("warn", "agent_broadcast: skipped " .. block_id .. ": " .. reason)
+      else
+        local _, err = rex.block.call(TERMINAL, "write", {
+          block_id = block_id,
+          data = prompt .. "\r",
+        })
+        if err ~= nil then
+          rex.log("warn", "agent_broadcast: " .. block_id .. ": " .. tostring(err))
+        else
+          sent = sent + 1
+        end
+      end
+    end
+    return { sent = sent, selected = #targets }
   end,
 }
 

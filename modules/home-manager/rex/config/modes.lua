@@ -36,6 +36,10 @@ rex.bind("move/enter", "client.mode.exit")
 
 -- agent: one key then out (mode is entered with once = true).
 rex.bind("agent/c", "agent_layout", { agent = "claude" })
+rex.bind("agent/x", "agent_layout", { agent = "codex" })
 rex.bind("agent/p", "agent_layout", { agent = "pi" })
+rex.bind("agent/t", "agent_team")
+rex.bind("agent/f", "agent_focus")
+rex.bind("agent/b", "agent_broadcast")
 rex.bind("agent/d", "dev_layout")
 rex.bind("agent/s", "scratch")

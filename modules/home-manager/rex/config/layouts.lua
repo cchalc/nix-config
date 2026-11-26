@@ -3,6 +3,8 @@
 -- time; the functions that look at blocks or windows run only when called.
 local M = {}
 
+local Agents = require("agents")
+
 M.SHELL = "com.superlogical.terminal.shell"
 
 local function shell(opts)
@@ -19,6 +21,13 @@ M.shell = shell
 local function fish_quote(s)
   return "'" .. s:gsub("\\", "\\\\"):gsub("'", "\\'") .. "'"
 end
+
+local function fish_line(argv)
+  local parts = {}
+  for i, a in ipairs(argv) do parts[i] = fish_quote(tostring(a)) end
+  return table.concat(parts, " ")
+end
+M.fish_line = fish_line
 
 -- Single-quote one argument for sh ('...' has no escapes; close, \', reopen).
 local function sh_quote(s)
@@ -41,9 +50,7 @@ function M.cmd(argv, opts)
     if opts.cwd then o.cwd = opts.cwd end
     return rex.layout.block{ flavor = M.SHELL, options = o }
   end
-  local parts = {}
-  for i, a in ipairs(argv) do parts[i] = fish_quote(a) end
-  return shell{ cwd = opts.cwd, input = table.concat(parts, " ") .. "\n" }
+  return shell{ cwd = opts.cwd, input = fish_line(argv) .. "\n" }
 end
 
 function M.h(ratio, a, b) return rex.layout.horizontal(ratio, a, b) end
@@ -60,6 +67,8 @@ function M.agent(opts)
   opts = opts or {}
   local cwd = opts.cwd
   local agent = opts.agent or "claude"
+  local argv = opts.command or Agents.command(agent)
+  if argv == nil then error("unknown agent: " .. tostring(agent), 0) end
   local has_jj = false
   if cwd then
     local f = io.open(cwd .. "/.jj", "r")
@@ -67,8 +76,45 @@ function M.agent(opts)
   end
   local log = has_jj and "jj --no-pager log\n" or "git --no-pager log --oneline --graph -20\n"
   return M.h(0.6,
-    shell{ cwd = cwd, input = agent .. "\n" },
+    shell{ cwd = cwd, input = fish_line(argv) .. "\n" },
     M.v(0.5, shell{ cwd = cwd }, shell{ cwd = cwd, input = log }))
+end
+
+-- One interactive agent pane. Starting through the user's shell preserves the
+-- normal PATH and lets Rex's resume hook observe a supported agent.
+function M.agent_block(opts)
+  opts = opts or {}
+  local argv = opts.command or Agents.command(opts.agent or "claude")
+  if argv == nil then error("unknown agent: " .. tostring(opts.agent), 0) end
+  return shell{ cwd = opts.cwd, input = fish_line(argv) .. "\n" }
+end
+
+-- Balance two to four blocks without building a deeply lopsided layout.
+function M.grid(blocks)
+  if #blocks == 1 then return blocks[1] end
+  if #blocks == 2 then return M.h(0.5, blocks[1], blocks[2]) end
+  if #blocks == 3 then
+    return M.h(0.5, blocks[1], M.v(0.5, blocks[2], blocks[3]))
+  end
+  if #blocks == 4 then
+    return M.h(0.5,
+      M.v(0.5, blocks[1], blocks[2]),
+      M.v(0.5, blocks[3], blocks[4]))
+  end
+  error("grid supports one to four blocks", 0)
+end
+
+-- Operator shell plus one to three agent panes. Returns labels in the same
+-- traversal order as the blocks so the caller can label them after creation.
+function M.team(opts)
+  opts = opts or {}
+  local blocks = { shell{ cwd = opts.cwd } }
+  local labels = { "operator" }
+  for _, name in ipairs(opts.agents or {}) do
+    blocks[#blocks + 1] = M.agent_block{ cwd = opts.cwd, agent = name }
+    labels[#labels + 1] = "agent:" .. name
+  end
+  return M.grid(blocks), labels
 end
 
 -- Directory of the block that invoked the action, from its reported pwd
